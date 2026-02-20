@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0a0a0f;
+  --card: #1a1a2e;
+  --border: #2a2a4e;
+  --primary: #00d4ff;
+  --secondary: #7c3aed;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background);
+  color: #fff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a5e;
+}
+
+/* Animations */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out forwards;
+}
+
+/* Card styles */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  border-color: #3a3a5e;
+  transform: translateY(-2px);
+}
+
+/* Status colors */
+.status-todo { background: #3a3a5e; color: #9ca3af; }
+.status-in_progress { background: #1e3a5f; color: #00d4ff; }
+.status-review { background: #3a2e1e; color: #f59e0b; }
+.status-done { background: #1e3a2e; color: #10b981; }
+
+/* Priority colors */
+.priority-low { background: #1e3a2e; color: #10b981; }
+.priority-medium { background: #1e3a5f; color: #00d4ff; }
+.priority-high { background: #3a2e1e; color: #f59e0b; }
+.priority-urgent { background: #3a1e1e; color: #ef4444; }
+
+/* Stage colors */
+.stage-idea { border-left: 3px solid #9ca3af; }
+.stage-script { border-left: 3px solid #00d4ff; }
+.stage-thumbnail { border-left: 3px solid #a855f7; }
+.stage-filming { border-left: 3px solid #f59e0b; }
+.stage-editing { border-left: 3px solid #ec4899; }
+.stage-review { border-left: 3px solid #f59e0b; }
+.stage-scheduled { border-left: 3px solid #7c3aed; }
+.stage-published { border-left: 3px solid #10b981; }
