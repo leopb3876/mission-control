@@ -293,7 +293,8 @@ export default function ContentPage() {
                           c.id === selectedItem.id
                             ? { ...c, thumbnailUrl: e.target.value }
                             : c
-                        );
+                        )
+                      );
                       setSelectedItem({ ...selectedItem, thumbnailUrl: e.target.value });
                     }}
                     placeholder="Image URL for thumbnail"

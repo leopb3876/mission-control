@@ -121,7 +121,7 @@ export default function MemoryPage() {
     return matchesSearch && matchesCategory;
   });
 
-  const allTags = [...new Set(memories.flatMap((m) => m.tags))];
+  const allTags = Array.from(new Set(memories.flatMap((m) => m.tags)));
 
   return (
     <div className="min-h-screen bg-background">

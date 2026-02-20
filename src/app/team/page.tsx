@@ -196,7 +196,7 @@ export default function TeamPage() {
                   {agent.capabilities.map((cap) => (
                     <span
                       key={cap}
-                     -xs px-2 py-0. className="text5 bg-background rounded text-gray-400"
+                      className="text-xs px-2 py-0.5 bg-background rounded text-gray-400"
                     >
                       {cap}
                     </span>
