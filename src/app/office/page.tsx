@@ -120,10 +120,10 @@ export default function OfficePage() {
           <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "8px" }}>Office</h1>
           <p style={{ color: "#9ca3af", marginBottom: "16px" }}>Your virtual workspace</p>
 
-          <div style={{
-            width: "100%",
-            maxWidth: "650px",
-            height: "400px",
+          {/* Office Room - Top Down Pixel Art - Fills available space */}
+        <div style={{ 
+            flex: 1, 
+            height: "450px",
             position: "relative",
             borderRadius: "8px",
             overflow: "hidden",
