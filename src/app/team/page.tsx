@@ -4,7 +4,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Users, Bot, RefreshCw } from "lucide-react";
+import { Users, Bot } from "lucide-react";
 
 type Agent = {
   id: string;
@@ -51,14 +51,6 @@ export default function TeamPage() {
     return () => clearInterval(interval);
   }, []);
 
-  const toggleStatus = (id: string) => {
-    setAgents(prev => prev.map(agent => 
-      agent.id === id 
-        ? { ...agent, status: agent.status === "active" ? "idle" : "active", lastActive: "Just now" }
-        : agent
-    ));
-  };
-
   return (
     <div style={{ marginLeft: "180px", minHeight: "100vh", background: "var(--background)", color: "var(--text-primary)" }}>
       <header style={{ height: "56px", background: "var(--card)", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
@@ -102,13 +94,6 @@ export default function TeamPage() {
                     {agent.status === "active" ? "● Active" : "○ Idle"}
                   </span>
                 </div>
-                <button 
-                  onClick={() => toggleStatus(agent.id)}
-                  style={{ display: "flex", alignItems: "center", gap: "4px", background: "var(--background)", border: "1px solid var(--border)", borderRadius: "6px", padding: "6px 10px", fontSize: "11px", color: "var(--text-secondary)", cursor: "pointer" }}
-                >
-                  <RefreshCw size={12} />
-                  Toggle
-                </button>
               </div>
               {agent.lastActive && (
                 <div style={{ fontSize: "10px", color: "var(--text-secondary)", marginTop: "8px" }}>
