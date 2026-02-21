@@ -356,6 +356,35 @@ export default function OfficePage() {
                 }}>
                   {agent.name}
                 </div>
+                {/* Speech Bubble */}
+                <div style={{
+                  position: "absolute",
+                  top: "-45px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  background: "#fff",
+                  color: "#1a1a2e",
+                  padding: "4px 8px",
+                  borderRadius: "6px",
+                  fontSize: "9px",
+                  fontWeight: 600,
+                  whiteSpace: "nowrap",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
+                  zIndex: 10,
+                }}>
+                  {agent.status === "working" ? "💻 Working..." : "🛋️ Idle"}
+                  <div style={{
+                    position: "absolute",
+                    bottom: "-6px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: 0,
+                    height: 0,
+                    borderLeft: "6px solid transparent",
+                    borderRight: "6px solid transparent",
+                    borderTop: "6px solid #fff",
+                  }} />
+                </div>
               </div>
             ))}
           </div>
