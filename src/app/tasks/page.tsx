@@ -7,7 +7,7 @@ type Task = {
   id: string;
   title: string;
   description: string;
-  status: "todo" | "in_progress" | "review" | "done";
+  status: "todo" | "in_progress" | "done";
   priority: "low" | "medium" | "high" | "urgent";
   tags: string[];
   progress: number;
@@ -36,10 +36,10 @@ const initialTasks: Task[] = [
     id: "3",
     title: "Set up Discord monetization",
     description: "Configure server subscriptions and tiers",
-    status: "done",
+    status: "todo",
     priority: "low",
     tags: ["discord"],
-    progress: 100,
+    progress: 0,
   },
   {
     id: "4",
@@ -55,7 +55,7 @@ const initialTasks: Task[] = [
 const columns = [
   { id: "todo", label: "To Do", color: "#6b7280" },
   { id: "in_progress", label: "In Progress", color: "#22d3ee" },
-  { id: "review", label: "Review", color: "#f59e0b" },
+  
   { id: "done", label: "Done", color: "#10b981" },
 ];
 
