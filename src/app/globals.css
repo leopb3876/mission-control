@@ -281,12 +281,17 @@ body {
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-  /* Hide desktop sidebar on mobile */
+  /* Hide desktop sidebar on mobile - it will be shown as slide-in overlay */
   .sidebar-desktop {
     display: none !important;
   }
   
-  /* Show mobile nav */
+  /* Show hamburger on mobile */
+  .hamburger {
+    display: flex !important;
+  }
+  
+  /* Show mobile nav as bottom bar */
   .mobile-nav {
     display: flex !important;
     position: fixed;
@@ -313,8 +318,10 @@ body {
   }
   
   /* Adjust main content for mobile */
-  body > div[style*="marginLeft"] {
+  .main-content {
     margin-left: 0 !important;
+    padding: 16px !important;
+    padding-top: 60px !important;
     padding-bottom: 70px !important;
   }
   
@@ -339,5 +346,10 @@ body {
   /* Stack flex containers */
   div[style*="display: flex"][style*="gap: 16px"] {
     flex-direction: column !important;
+  }
+  
+  /* Table scroll */
+  .table-container {
+    overflow-x: auto !important;
   }
 }
