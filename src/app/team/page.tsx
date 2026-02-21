@@ -10,6 +10,14 @@ const agents = [
     description: "Your personal AI assistant - handles research, tasks, reminders, and more",
     avatar: "🌿",
   },
+  {
+    id: "terry",
+    name: "Terry",
+    role: "Coding Agent",
+    status: "active",
+    description: "Handles all coding tasks using MiniMax M2.5 - builds apps, fixes bugs, and manages your projects",
+    avatar: "💻",
+  },
 ];
 
 export default function TeamPage() {
