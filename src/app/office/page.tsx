@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Monitor, Coffee, Code } from "lucide-react";
 
 type Agent = {
@@ -8,19 +8,28 @@ type Agent = {
   name: string;
   role: string;
   status: "working" | "idle" | "break" | "offline";
-  currentTask?: string;
+  emoji: string;
+  color: string;
 };
 
-const initialAgents: Agent[] = [];
+const agents: Agent[] = [
+  { id: "mori", name: "Mori", role: "AI Assistant", status: "working", emoji: "🌿", color: "linear-gradient(135deg, #22d3ee, #10b981)" },
+  { id: "leo", name: "Leo", role: "Owner", status: "working", emoji: "👤", color: "linear-gradient(135deg, #a855f7, #ec4899)" },
+];
 
 export default function OfficePage() {
-  const [agents] = useState<Agent[]>(initialAgents);
+  const [time, setTime] = useState(new Date());
+  
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 60000);
+    return () => clearInterval(timer);
+  }, []);
 
-  const statusConfig: Record<string, { color: string; label: string }> = {
-    working: { color: "#10b981", label: "Working" },
-    idle: { color: "#f59e0b", label: "Idle" },
-    break: { color: "#3b82f6", label: "Break" },
-    offline: { color: "#6b7280", label: "Offline" },
+  const statusConfig: Record<string, { color: string; label: string; animation: string }> = {
+    working: { color: "#10b981", label: "Working", animation: "pulse" },
+    idle: { color: "#f59e0b", label: "Idle", animation: "bounce" },
+    break: { color: "#3b82f6", label: "Break", animation: "wave" },
+    offline: { color: "#6b7280", label: "Offline", animation: "none" },
   };
 
   return (
@@ -44,47 +53,182 @@ export default function OfficePage() {
           <Monitor size={24} style={{ color: "#a855f7" }} />
           Office
         </h1>
-        <p style={{ color: "#9ca3af", marginBottom: "32px" }}>Monitor your agents in real-time</p>
+        <p style={{ color: "#9ca3af", marginBottom: "24px" }}>Monitor your team in real-time</p>
 
-        {/* Office View */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "16px" }}>
-          {/* Mori */}
-          <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px", position: "relative", overflow: "hidden" }}>
-            <div style={{ position: "absolute", top: 0, right: 0, width: "60px", height: "60px", background: "linear-gradient(to bottom left, #22d3ee20, transparent)", borderRadius: "50%" }} />
-            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
-              <div style={{ width: "48px", height: "48px", background: "linear-gradient(to bottom right, #22d3ee, #10b981)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px" }}>🌿</div>
-              <div>
-                <div style={{ fontWeight: 600, display: "flex", alignItems: "center", gap: "6px" }}>
-                  Mori
-                  <Code size={14} style={{ color: "#22d3ee" }} />
+        {/* Animated Office Grid */}
+        <div style={{ 
+          display: "grid", 
+          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", 
+          gap: "20px",
+          position: "relative"
+        }}>
+          {/* Office Background Effect */}
+          <div style={{
+            position: "absolute",
+            inset: 0,
+            background: "radial-gradient(circle at 50% 50%, #22d3ee08 0%, transparent 50%)",
+            pointerEvents: "none",
+          }} />
+
+          {agents.map((agent) => {
+            const status = statusConfig[agent.status];
+            return (
+              <div 
+                key={agent.id}
+                style={{ 
+                  background: "#121218", 
+                  border: "1px solid #1f1f2e", 
+                  borderRadius: "16px", 
+                  padding: "24px", 
+                  position: "relative",
+                  overflow: "hidden",
+                  animation: "fadeIn 0.5s ease-out",
+                }}
+              >
+                {/* Glow Effect */}
+                <div style={{
+                  position: "absolute",
+                  top: "-50%",
+                  right: "-50%",
+                  width: "100%",
+                  height: "100%",
+                  background: agent.color.replace("135deg", "").replace(",", "").replace(")", ""),
+                  opacity: 0.1,
+                  borderRadius: "50%",
+                  filter: "blur(40px)",
+                }} />
+
+                {/* Agent Header */}
+                <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "16px", position: "relative" }}>
+                  {/* Animated Avatar */}
+                  <div style={{
+                    width: "64px",
+                    height: "64px",
+                    background: agent.color,
+                    borderRadius: "16px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "32px",
+                    boxShadow: `0 0 20px ${status.color}40`,
+                    animation: agent.status === "working" ? "typing 1s ease-in-out infinite" : "bounce 2s ease-in-out infinite",
+                  }}>
+                    {agent.emoji}
+                  </div>
+                  
+                  <div>
+                    <div style={{ fontWeight: 600, fontSize: "18px", display: "flex", alignItems: "center", gap: "8px" }}>
+                      {agent.name}
+                      <Code size={14} style={{ color: status.color }} />
+                    </div>
+                    <div style={{ fontSize: "12px", color: "#9ca3af" }}>{agent.role}</div>
+                  </div>
                 </div>
-                <div style={{ fontSize: "12px", color: "#9ca3af" }}>AI Assistant</div>
-              </div>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
-              <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981" }} />
-              <span style={{ fontSize: "12px", color: "#10b981" }}>Working</span>
-            </div>
-            <div style={{ fontSize: "12px", color: "#6b7280" }}>Current: Waiting for input</div>
-          </div>
 
-          {/* Leo (User) */}
-          <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px", position: "relative", overflow: "hidden" }}>
-            <div style={{ position: "absolute", top: 0, right: 0, width: "60px", height: "60px", background: "linear-gradient(to bottom left, #a855f720, transparent)", borderRadius: "50%" }} />
-            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
-              <div style={{ width: "48px", height: "48px", background: "linear-gradient(to bottom right, #a855f7, #ec4899)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "bold" }}>L</div>
-              <div>
-                <div style={{ fontWeight: 600 }}>Leo</div>
-                <div style={{ fontSize: "12px", color: "#9ca3af" }}>Owner</div>
+                {/* Status Indicator */}
+                <div style={{ 
+                  display: "flex", 
+                  alignItems: "center", 
+                  gap: "8px", 
+                  marginBottom: "12px",
+                  padding: "8px 12px",
+                  background: "#0a0a0f",
+                  borderRadius: "8px",
+                }}>
+                  <div style={{
+                    width: "10px",
+                    height: "10px",
+                    borderRadius: "50%",
+                    background: status.color,
+                    boxShadow: `0 0 10px ${status.color}`,
+                    animation: "pulse 2s ease-in-out infinite",
+                  }} />
+                  <span style={{ fontSize: "13px", color: status.color, fontWeight: 500 }}>{status.label}</span>
+                </div>
+
+                {/* Activity Bar */}
+                {agent.status === "working" && (
+                  <div style={{ marginTop: "12px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#6b7280", marginBottom: "6px" }}>
+                      <span>Activity</span>
+                      <span>Active now</span>
+                    </div>
+                    <div style={{ 
+                      height: "4px", 
+                      background: "#1f1f2e", 
+                      borderRadius: "2px", 
+                      overflow: "hidden" 
+                    }}>
+                      <div style={{
+                        height: "100%",
+                        width: "70%",
+                        background: `linear-gradient(90deg, ${status.color}, ${status.color}80)`,
+                        borderRadius: "2px",
+                        animation: "slideRight 2s ease-in-out infinite",
+                      }} />
+                    </div>
+                  </div>
+                )}
+
+                {/* Current Task */}
+                <div style={{ 
+                  marginTop: "16px", 
+                  padding: "12px", 
+                  background: "#0a0a0f", 
+                  borderRadius: "8px",
+                  borderLeft: `3px solid ${status.color}`,
+                }}>
+                  <div style={{ fontSize: "10px", color: "#6b7280", marginBottom: "4px", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                    Current Task
+                  </div>
+                  <div style={{ fontSize: "13px", color: "#9ca3af" }}>
+                    {agent.id === "mori" ? "Waiting for input..." : "Managing Mission Control"}
+                  </div>
+                </div>
+
+                {/* Time */}
+                <div style={{ 
+                  position: "absolute", 
+                  bottom: "12px", 
+                  right: "16px", 
+                  fontSize: "10px", 
+                  color: "#6b7280" 
+                }}>
+                  {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </div>
               </div>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
-              <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#22d3ee" }} />
-              <span style={{ fontSize: "12px", color: "#22d3ee" }}>Online</span>
-            </div>
-            <div style={{ fontSize: "12px", color: "#6b7280" }}>Using Mission Control</div>
-          </div>
+            );
+          })}
         </div>
+
+        {/* CSS Animations */}
+        <style>{`
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+          }
+          @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+          }
+          @keyframes typing {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+          }
+          @keyframes slideRight {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+          }
+          @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+          }
+        `}</style>
       </div>
     </div>
   );
