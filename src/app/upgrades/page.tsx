@@ -1,45 +1,60 @@
-import Link from "next/link";
-import { Rocket, Check, Download, Sparkles } from "lucide-react";
+"use client";
 
-const installedSkills = [
-  { name: "gog", description: "Google Workspace CLI (Gmail, Calendar, Drive)", installed: true },
-  { name: "summarize", description: "Summarize URLs, PDFs, YouTube videos", installed: true },
-  { name: "weather", description: "Weather forecasts (no API key needed)", installed: true },
-  { name: "healthcheck", description: "Security audits & system health", installed: true },
-  { name: "skill-creator", description: "Create & update AgentSkills", installed: true },
-  { name: "Ecommerce", description: "Build & operate online stores", installed: true },
-  { name: "Product", description: "Product strategy & launch tools", installed: true },
-  { name: "SEO", description: "Search optimization & audits", installed: true },
-  { name: "Social Media Scheduler", description: "Plan & organize social content", installed: true },
-];
+import { useState, useEffect } from "react";
+import { Rocket, Check, Key, Eye, EyeOff, ShoppingCart, CreditCard } from "lucide-react";
 
-const availableSkills = [
-  { name: "Notion", description: "Notion integration for notes & databases", category: "Productivity" },
-  { name: "Discord", description: "Discord bot & messaging", category: "Communication" },
-  { name: "Slack", description: "Slack workspace integration", category: "Communication" },
-  { name: "GitHub", description: "GitHub issues & PR automation", category: "Development" },
-  { name: "Coding Agent", description: "AI coding assistant", category: "Development" },
-  { name: "Spotify", description: "Spotify playback control", category: "Media" },
-  { name: "OpenAI Image Gen", description: "Generate images with DALL-E", category: "AI" },
-  { name: "TTS (sag)", description: "Text-to-speech with ElevenLabs", category: "AI" },
-  { name: "Calendar", description: "Calendar management", category: "Productivity" },
-  { name: "Obsidian", description: "Obsidian vault integration", category: "Productivity" },
-];
+type ApiKey = {
+  service: string;
+  key: string;
+  connected: boolean;
+};
 
 export default function Upgrades() {
+  const [apiKeys, setApiKeys] = useState<ApiKey[]>([]);
+  const [showKey, setShowKey] = useState<string | null>(null);
+  const [newKey, setNewKey] = useState("");
+  const [selectedService, setSelectedService] = useState("shopify");
+
+  // Load from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem("apiKeys");
+    if (saved) {
+      setApiKeys(JSON.parse(saved));
+    }
+  }, []);
+
+  // Save to localStorage
+  useEffect(() => {
+    localStorage.setItem("apiKeys", JSON.stringify(apiKeys));
+  }, [apiKeys]);
+
+  const saveApiKey = () => {
+    if (!newKey.trim()) return;
+    const existing = apiKeys.find(a => a.service === selectedService);
+    if (existing) {
+      setApiKeys(apiKeys.map(a => a.service === selectedService ? { ...a, key: newKey } : a));
+    } else {
+      setApiKeys([...apiKeys, { service: selectedService, key: newKey, connected: true }]);
+    }
+    setNewKey("");
+  };
+
+  const removeApiKey = (service: string) => {
+    setApiKeys(apiKeys.filter(a => a.service !== service));
+  };
+
+  const isConnected = (service: string) => apiKeys.some(a => a.service === service && a.connected);
+
   return (
-    <div style={{ minHeight: "100vh", background: "#151520", color: "white", marginLeft: "180px" }}>
-      {/* Header */}
-      <header style={{ height: "56px", background: "#1e1e30", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+    <div style={{ marginLeft: "180px", minHeight: "100vh", background: "var(--background)", color: "var(--text-primary)" }}>
+      <header style={{ height: "56px", background: "var(--card)", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
         <span style={{ fontWeight: 600 }}>Mission Control</span>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "var(--text-secondary)" }}>
             <div style={{ width: "8px", height: "8px", background: "#22d3ee", borderRadius: "50%" }} />
             Mori online
           </div>
-          <div style={{ width: "32px", height: "32px", background: "#22d3ee", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>
-            L
-          </div>
+          <div style={{ width: "32px", height: "32px", background: "#22d3ee", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>L</div>
         </div>
       </header>
 
@@ -48,59 +63,98 @@ export default function Upgrades() {
           <Rocket size={24} style={{ color: "#ec4899" }} />
           Upgrades
         </h1>
-        <p style={{ color: "#9ca3af", marginBottom: "32px" }}>Extend your Mission Control with skills & capabilities</p>
+        <p style={{ color: "var(--text-secondary)", marginBottom: "24px" }}>Connect integrations & APIs</p>
 
-        {/* Installed Skills */}
-        <div style={{ marginBottom: "40px" }}>
+        {/* API Connections */}
+        <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", padding: "24px", marginBottom: "24px" }}>
           <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
-            <Check size={20} style={{ color: "#10b981" }} />
-            Installed Skills
+            <Key size={20} style={{ color: "#22d3ee" }} />
+            API Connections
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "12px" }}>
-            {installedSkills.map((skill) => (
-              <div key={skill.name} style={{ background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", padding: "16px" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
-                  <span style={{ fontWeight: 600, color: "#22d3ee" }}>{skill.name}</span>
-                  <Check size={16} style={{ color: "#10b981" }} />
+          
+          {/* Add API Key Form */}
+          <div style={{ display: "flex", gap: "12px", marginBottom: "24px", flexWrap: "wrap" }}>
+            <select
+              value={selectedService}
+              onChange={(e) => setSelectedService(e.target.value)}
+              style={{ background: "var(--background)", border: "1px solid var(--border)", borderRadius: "8px", padding: "12px", color: "var(--text-primary)", fontSize: "14px" }}
+            >
+              <option value="shopify">Shopify</option>
+              <option value="stripe">Stripe</option>
+            </select>
+            <input
+              type={showKey === selectedService ? "text" : "password"}
+              placeholder={selectedService === "shopify" ? "shpat_xxxxx..." : "sk_live_xxxxx..."}
+              value={newKey}
+              onChange={(e) => setNewKey(e.target.value)}
+              style={{ flex: 1, minWidth: "200px", background: "var(--background)", border: "1px solid var(--border)", borderRadius: "8px", padding: "12px", color: "var(--text-primary)", fontSize: "14px" }}
+            />
+            <button
+              onClick={() => setShowKey(showKey === selectedService ? null : selectedService)}
+              style={{ padding: "12px", background: "var(--background)", border: "1px solid var(--border)", borderRadius: "8px", color: "var(--text-secondary)", cursor: "pointer" }}
+            >
+              {showKey === selectedService ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+            <button
+              onClick={saveApiKey}
+              style={{ display: "flex", alignItems: "center", gap: "8px", background: "#22d3ee", color: "#0a0a0f", border: "none", borderRadius: "8px", padding: "12px 20px", fontWeight: 600, cursor: "pointer" }}
+            >
+              <Check size={18} />
+              Connect
+            </button>
+          </div>
+
+          {/* Connected APIs */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            {apiKeys.map((api) => (
+              <div key={api.service} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px", background: "var(--background)", borderRadius: "8px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  {api.service === "shopify" && <ShoppingCart size={20} style={{ color: "#10b981" }} />}
+                  {api.service === "stripe" && <CreditCard size={20} style={{ color: "#a855f7" }} />}
+                  <div>
+                    <div style={{ fontWeight: 600, textTransform: "capitalize" }}>{api.service}</div>
+                    <div style={{ fontSize: "12px", color: "var(--text-secondary)" }}>
+                      {api.key.substring(0, 10)}...{api.key.substring(api.key.length - 4)}
+                    </div>
+                  </div>
                 </div>
-                <p style={{ fontSize: "12px", color: "#9ca3af" }}>{skill.description}</p>
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <span style={{ fontSize: "12px", color: "#10b981", display: "flex", alignItems: "center", gap: "4px" }}>
+                    <Check size={14} /> Connected
+                  </span>
+                  <button
+                    onClick={() => removeApiKey(api.service)}
+                    style={{ background: "none", border: "none", color: "#ef4444", cursor: "pointer", fontSize: "12px" }}
+                  >
+                    Disconnect
+                  </button>
+                </div>
               </div>
             ))}
+            {apiKeys.length === 0 && (
+              <div style={{ textAlign: "center", padding: "24px", color: "var(--text-secondary)" }}>
+                No APIs connected yet. Add your API keys above.
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Available Skills */}
-        <div>
-          <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
-            <Sparkles size={20} style={{ color: "#a855f7" }} />
-            Available to Install
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "12px" }}>
-            {availableSkills.map((skill) => (
-              <div key={skill.name} style={{ background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", padding: "16px" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
-                  <span style={{ fontWeight: 600 }}>{skill.name}</span>
-                  <span style={{ fontSize: "10px", background: "#1f1f2e", padding: "2px 8px", borderRadius: "4px", color: "#9ca3af" }}>{skill.category}</span>
-                </div>
-                <p style={{ fontSize: "12px", color: "#9ca3af", marginBottom: "12px" }}>{skill.description}</p>
-                <button style={{ display: "flex", alignItems: "center", gap: "4px", background: "transparent", border: "1px solid #22d3ee", color: "#22d3ee", padding: "6px 12px", borderRadius: "6px", fontSize: "12px", cursor: "pointer" }}>
-                  <Download size={12} />
-                  Install
-                </button>
+        {/* Skills Section */}
+        <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "16px" }}>Installed Skills</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "12px", marginBottom: "32px" }}>
+          {[
+            { name: "gog", description: "Google Workspace CLI (Gmail, Calendar, Drive)" },
+            { name: "summarize", description: "Summarize URLs, PDFs, YouTube videos" },
+            { name: "weather", description: "Weather forecasts" },
+          ].map((skill) => (
+            <div key={skill.name} style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", padding: "16px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                <Check size={16} style={{ color: "#10b981" }} />
+                <span style={{ fontWeight: 600 }}>{skill.name}</span>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Clawhub */}
-        <div style={{ marginTop: "40px", background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", padding: "24px" }}>
-          <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "8px" }}>🔗 Clawhub</h2>
-          <p style={{ color: "#9ca3af", fontSize: "14px", marginBottom: "16px" }}>
-            Discover more skills at <a href="https://clawhub.com" target="_blank" style={{ color: "#22d3ee" }}>clawhub.com</a> — the marketplace for OpenClaw skills
-          </p>
-          <a href="https://clawhub.com" target="_blank" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "#22d3ee", color: "#0a0a0f", padding: "10px 20px", borderRadius: "8px", fontWeight: 600, textDecoration: "none" }}>
-            Browse Clawhub
-          </a>
+              <p style={{ fontSize: "12px", color: "var(--text-secondary)" }}>{skill.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
