@@ -14,7 +14,7 @@ const agents = [
     id: "terry",
     name: "Terry",
     role: "Coding Agent",
-    status: "active",
+    status: "idle",
     description: "Handles all coding tasks using MiniMax M2.5 - builds apps, fixes bugs, and manages your projects",
     avatar: "💻",
   },
@@ -63,7 +63,9 @@ export default function TeamPage() {
               <p style={{ fontSize: "13px", color: "#9ca3af", marginBottom: "12px" }}>{agent.description}</p>
               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: agent.status === "active" ? "#10b981" : "#f59e0b" }} />
-                <span style={{ fontSize: "12px", color: "#9ca3af", textTransform: "capitalize" }}>{agent.status}</span>
+                <span style={{ fontSize: "12px", color: agent.status === "active" ? "#10b981" : "#f59e0b", textTransform: "capitalize", fontWeight: 500 }}>
+                  {agent.status === "active" ? "● Active" : "○ Idle"}
+                </span>
               </div>
             </div>
           ))}
