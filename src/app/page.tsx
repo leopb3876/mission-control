@@ -27,7 +27,7 @@ export default function Home() {
               <div style={{ width: "8px", height: "8px", background: "#22d3ee", borderRadius: "50%" }} />
               Mori online
             </div>
-            <div style={{ width: "32px", height: "32px", background: "linear-gradient(to bottom right, #22d3ee, #a855f7)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>
+            <div style={{ width: "32px", height: "32px", background: "#22d3ee", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>
               L
             </div>
           </div>
@@ -51,7 +51,7 @@ export default function Home() {
                 key={item.label}
                 href={item.href}
                 style={{
-                  background: `linear-gradient(to bottom right, ${item.color}20, ${item.color}05)`,
+                  background: "#121218",
                   border: `1px solid ${item.color}30`,
                   borderRadius: "12px",
                   padding: "16px",

@@ -122,7 +122,7 @@ export default function OfficePage() {
             <div style={{ width: "8px", height: "8px", background: "#22d3ee", borderRadius: "50%" }} />
             Mori online
           </div>
-          <div style={{ width: "32px", height: "32px", background: "linear-gradient(to bottom right, #22d3ee, #a855f7)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>
+          <div style={{ width: "32px", height: "32px", background: "#22d3ee", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>
             L
           </div>
         </div>

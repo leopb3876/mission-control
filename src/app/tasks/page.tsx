@@ -84,7 +84,7 @@ export default function TasksPage() {
             <div style={{ width: "8px", height: "8px", background: "#22d3ee", borderRadius: "50%" }} />
             Mori online
           </div>
-          <div style={{ width: "32px", height: "32px", background: "linear-gradient(to bottom right, #22d3ee, #a855f7)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>L</div>
+          <div style={{ width: "32px", height: "32px", background: "#22d3ee", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>L</div>
         </div>
       </header>
 
@@ -131,7 +131,7 @@ export default function TasksPage() {
               <span style={{ fontSize: "14px", color: "#22d3ee" }}>{progressPercent}%</span>
             </div>
             <div style={{ height: "10px", background: "#0a0a0f", borderRadius: "4px", overflow: "hidden" }}>
-              <div style={{ height: "100%", width: `${progressPercent}%`, background: "linear-gradient(90deg, #22d3ee, #10b981)", borderRadius: "4px", transition: "width 0.3s ease" }} />
+              <div style={{ height: "100%", width: `${progressPercent}%`, background: "#22d3ee", borderRadius: "4px", transition: "width 0.3s ease" }} />
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", marginTop: "8px", fontSize: "12px", color: "#9ca3af" }}>
               <span>{inProgressTasks} in progress</span>

@@ -37,7 +37,7 @@ export default function Upgrades() {
             <div style={{ width: "8px", height: "8px", background: "#22d3ee", borderRadius: "50%" }} />
             Mori online
           </div>
-          <div style={{ width: "32px", height: "32px", background: "linear-gradient(to bottom right, #22d3ee, #a855f7)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>
+          <div style={{ width: "32px", height: "32px", background: "#22d3ee", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>
             L
           </div>
         </div>
@@ -93,7 +93,7 @@ export default function Upgrades() {
         </div>
 
         {/* Clawhub */}
-        <div style={{ marginTop: "40px", background: "linear-gradient(to right, #22d3ee10, #a855f710)", border: "1px solid #22d3ee30", borderRadius: "12px", padding: "24px" }}>
+        <div style={{ marginTop: "40px", background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "24px" }}>
           <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "8px" }}>🔗 Clawhub</h2>
           <p style={{ color: "#9ca3af", fontSize: "14px", marginBottom: "16px" }}>
             Discover more skills at <a href="https://clawhub.com" target="_blank" style={{ color: "#22d3ee" }}>clawhub.com</a> — the marketplace for OpenClaw skills
