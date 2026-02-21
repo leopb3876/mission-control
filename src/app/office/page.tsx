@@ -194,72 +194,91 @@ export default function OfficePage() {
               background: "#3d2817",
             }} />
 
-            {/* Plant - Pixel Art */}
-            <div style={{ position: "absolute", bottom: "84px", left: "24px" }}>
-              {/* Pot */}
+            {/* BIG Plant - Pixel Art */}
+            <div style={{ position: "absolute", bottom: "84px", left: "20px" }}>
+              {/* Big Pot */}
               <div style={{ 
-                width: "28px", 
-                height: "16px", 
+                width: "52px", 
+                height: "36px", 
                 background: "#cd853f",
-                clipPath: "polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%)",
+                border: "4px solid #8b5a2b",
               }} />
-              {/* Leaves - pixel blocks */}
+              {/* Big Leaves */}
               <div style={{ 
                 position: "absolute", 
-                bottom: "12px", 
-                left: "-4px",
-                fontSize: "24px", 
+                bottom: "30px", 
+                left: "-12px",
+                fontSize: "64px", 
                 imageRendering: "pixelated",
-                filter: "saturate(0.7) contrast(1.2)",
+                filter: "saturate(0.8) contrast(1.2)",
               }}>🌿</div>
-            </div>
-
-            {/* Water Cooler - Pixel Art */}
-            <div style={{ position: "absolute", bottom: "84px", right: "32px" }}>
               <div style={{ 
-                width: "24px", 
-                height: "48px", 
-                background: "#4a90d9",
+                position: "absolute", 
+                bottom: "45px", 
+                left: "25px",
+                fontSize: "36px", 
                 imageRendering: "pixelated",
-              }} />
+                filter: "saturate(0.8)",
+              }}>🌱</div>
+            </div>
+
+            {/* BIG Water Cooler - Pixel Art */}
+            <div style={{ position: "absolute", bottom: "84px", right: "28px" }}>
+              {/* Bottle */}
               <div style={{ 
-                width: "28px", 
-                height: "6px", 
-                background: "#3a70b0",
-                marginTop: "-2px"
+                width: "48px", 
+                height: "52px", 
+                background: "rgba(100, 180, 255, 0.7)",
+                borderRadius: "4px",
+                margin: "auto" 
+              }} />
+              {/* Main Body */}
+              <div style={{ 
+                width: "56px", 
+                height: "72px", 
+                background: "#4a90d9",
+                border: "4px solid #2c5aa0",
+              }} />
+              {/* Dispenser */}
+              <div style={{ 
+                position: "absolute",
+                bottom: "60px",
+                right: "4px",
+                width: "48px", 
+                height: "10px", 
+                background: "#2c5aa0",
               }} />
             </div>
 
-            {/* Pixel Art Desks */}
+            {/* BIG Pixel Art Desks */}
             {deskPositions.map((desk) => (
-              <div key={desk.id} style={{ position: "absolute", bottom: "100px", left: `${desk.x}px` }}>
+              <div key={desk.id} style={{ position: "absolute", bottom: "90px", left: `${desk.x - 10}px` }}>
                 {/* Desk top */}
                 <div style={{ 
-                  width: "72px", 
-                  height: "8px", 
-                  background: "#5c4033",
+                  width: "110px", 
+                  height: "16px", 
+                  background: "#6b4423",
+                  border: "4px solid #4a2f17",
                   imageRendering: "pixelated"
                 }} />
-                {/* Desk front */}
-                <div style={{ 
-                  width: "72px", 
-                  height: "24px", 
-                  background: "#4a332a",
-                  marginTop: "2px"
-                }} />
-                {/* Monitor */}
+                {/* Desk legs */}
+                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "4px", padding: "0 12px" }}>
+                  <div style={{ width: "16px", height: "36px", background: "#4a2f17" }} />
+                  <div style={{ width: "16px", height: "36px", background: "#4a2f17" }} />
+                </div>
+                {/* BIG Monitor */}
                 <div style={{ 
                   position: "absolute", 
-                  bottom: "40px", 
-                  left: "16px",
-                  width: "40px", 
-                  height: "28px", 
+                  bottom: "60px", 
+                  left: "20px",
+                  width: "70px", 
+                  height: "52px", 
                   background: "#1a1a2e",
-                  border: "3px solid #2a2a40"
+                  border: "5px solid #2a2a40"
                 }}>
                   <div style={{ 
                     position: "absolute", 
-                    inset: "3px", 
+                    inset: "5px", 
                     background: deskPositions.find(d => d.id === desk.id)?.color || "#22d3ee",
                     transition: "background 0.3s"
                   }} />
@@ -267,11 +286,21 @@ export default function OfficePage() {
                 {/* Stand */}
                 <div style={{ 
                   position: "absolute", 
-                  bottom: "32px", 
-                  left: "28px",
-                  width: "16px", 
-                  height: "8px", 
+                  bottom: "36px", 
+                  left: "35px",
+                  width: "30px", 
+                  height: "16px", 
                   background: "#2a2a40"
+                }} />
+                {/* Keyboard */}
+                <div style={{ 
+                  position: "absolute", 
+                  bottom: "50px", 
+                  left: "30px",
+                  width: "50px", 
+                  height: "12px", 
+                  background: "#3a3a5e",
+                  border: "2px solid #2a2a40"
                 }} />
               </div>
             ))}
@@ -291,18 +320,27 @@ export default function OfficePage() {
                   zIndex: 5,
                 }}
               >
-                {/* Pixel Character Sprite */}
-                <svg width="32" height="32" viewBox="0 0 8 8" style={{ imageRendering: "pixelated", filter: agent.status === "working" ? `drop-shadow(0 0 6px ${agent.color})` : "none" }}>
-                  {/* Head */}
-                  <rect x="2" y="0" width="4" height="2" fill={agent.color} />
+                {/* BIG Pixel Character Sprite */}
+                <svg width="52" height="56" viewBox="0 0 13 14" style={{ imageRendering: "pixelated", filter: agent.status === "working" ? `drop-shadow(0 0 8px ${agent.color})` : "none" }}>
+                  {/* Hair */}
+                  <rect x="3" y="0" width="7" height="2" fill={agent.color} />
+                  <rect x="2" y="1" width="9" height="1" fill={agent.color} />
+                  {/* Face */}
+                  <rect x="3" y="2" width="7" height="4" fill="#f4d03f" />
                   {/* Eyes */}
-                  <rect x="1" y="2" width="2" height="2" fill={agent.color} />
-                  <rect x="5" y="2" width="2" height="2" fill={agent.color} />
+                  <rect x="4" y="3" width="2" height="2" fill="#1a1a2e" />
+                  <rect x="8" y="3" width="2" height="2" fill="#1a1a2e" />
                   {/* Body */}
-                  <rect x="2" y="3" width="4" height="3" fill={agent.color} />
+                  <rect x="2" y="6" width="9" height="4" fill={agent.color} opacity={0.9} />
+                  {/* Arms */}
+                  <rect x="0" y="6" width="2" height="3" fill={agent.color} opacity={0.7} />
+                  <rect x="11" y="6" width="2" height="3" fill={agent.color} opacity={0.7} />
                   {/* Legs */}
-                  <rect x="1" y="6" width="2" height="2" fill={agent.color} />
-                  <rect x="5" y="6" width="2" height="2" fill={agent.color} />
+                  <rect x="3" y="10" width="3" height="3" fill="#4a4a6a" />
+                  <rect x="7" y="10" width="3" height="3" fill="#4a4a6a" />
+                  {/* Shoes */}
+                  <rect x="2" y="12" width="4" height="2" fill="#2a2a40" />
+                  <rect x="7" y="12" width="4" height="2" fill="#2a2a40" />
                 </svg>
                 
                 {/* Name Tag - Pixel Style */}
