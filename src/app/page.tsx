@@ -1,23 +1,24 @@
 import "./globals.css";
+import Link from "next/link";
 import { LayoutDashboard, CheckSquare, FileText, Calendar, Brain, Users, Building2, TrendingUp, Rocket } from "lucide-react";
 
 const navItems = [
-  { href: "#", label: "Dashboard", icon: LayoutDashboard },
-  { href: "#tasks", label: "Tasks", icon: CheckSquare },
-  { href: "#content", label: "Content", icon: FileText },
-  { href: "#calendar", label: "Calendar", icon: Calendar },
-  { href: "#memory", label: "Memory", icon: Brain },
-  { href: "#team", label: "Team", icon: Users },
-  { href: "#office", label: "Office", icon: Building2 },
-  { href: "#profits", label: "Profits", icon: TrendingUp },
-  { href: "#upgrades", label: "Upgrades", icon: Rocket },
+  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/tasks", label: "Tasks", icon: CheckSquare },
+  { href: "/content", label: "Content", icon: FileText },
+  { href: "/calendar", label: "Calendar", icon: Calendar },
+  { href: "/memory", label: "Memory", icon: Brain },
+  { href: "/team", label: "Team", icon: Users },
+  { href: "/office", label: "Office", icon: Building2 },
+  { href: "/profits", label: "Profits", icon: TrendingUp },
+  { href: "/upgrades", label: "Upgrades", icon: Rocket },
 ];
 
 export default function Home() {
   return (
     <div style={{ minHeight: "100vh", background: "#0a0a0f", color: "white", display: "flex" }}>
       {/* Sidebar */}
-      <aside style={{ width: "64px", background: "#121218", borderRight: "1px solid #1f1f2e", padding: "12px", display: "flex", flexDirection: "column" }}>
+      <aside style={{ width: "64px", background: "#121218", borderRight: "1px solid #1f1f2e", padding: "12px", display: "flex", flexDirection: "column", position: "fixed", height: "100vh" }}>
         <div style={{ width: "40px", height: "40px", background: "linear-gradient(to bottom right, #22d3ee, #0891b2)", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "24px" }}>
           <span style={{ fontSize: "20px" }}>⚡</span>
         </div>
@@ -25,7 +26,7 @@ export default function Home() {
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
                 title={item.label}
@@ -41,16 +42,16 @@ export default function Home() {
                 }}
               >
                 <Icon size={20} />
-              </a>
+              </Link>
             );
           })}
         </nav>
       </aside>
 
       {/* Main */}
-      <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+      <main style={{ flex: 1, display: "flex", flexDirection: "column", marginLeft: "64px" }}>
         {/* Header */}
-        <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px" }}>
+        <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
           <span style={{ fontWeight: 600 }}>Mission Control</span>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
@@ -71,15 +72,15 @@ export default function Home() {
           {/* Quick Links */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "12px", marginBottom: "24px" }}>
             {[
-              { label: "Tasks", color: "#22d3ee" },
-              { label: "Content", color: "#a855f7" },
-              { label: "Calendar", color: "#f59e0b" },
-              { label: "Profits", color: "#10b981" },
-              { label: "Upgrades", color: "#ec4899" },
+              { label: "Tasks", color: "#22d3ee", href: "/tasks" },
+              { label: "Content", color: "#a855f7", href: "/content" },
+              { label: "Calendar", color: "#f59e0b", href: "/calendar" },
+              { label: "Profits", color: "#10b981", href: "/profits" },
+              { label: "Upgrades", color: "#ec4899", href: "/upgrades" },
             ].map((item) => (
-              <a
+              <Link
                 key={item.label}
-                href="#"
+                href={item.href}
                 style={{
                   background: `linear-gradient(to bottom right, ${item.color}20, ${item.color}05)`,
                   border: `1px solid ${item.color}30`,
@@ -87,11 +88,11 @@ export default function Home() {
                   padding: "16px",
                   color: item.color,
                   textDecoration: "none",
-                  transition: "transform 0.2s",
+                  display: "block",
                 }}
               >
                 <div style={{ fontWeight: 600, fontSize: "14px" }}>{item.label}</div>
-              </a>
+              </Link>
             ))}
           </div>
 
