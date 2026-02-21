@@ -143,16 +143,15 @@ export default function OfficePage() {
             border: "4px solid #1a1a2e",
             imageRendering: "pixelated",
           }}>
-            {/* Floor - Checkered Pixel Tiles */}
+            {/* Floor - Checkerboard Pixel Pattern */}
             <div style={{
               position: "absolute",
               inset: 0,
               background: `
-                linear-gradient(90deg, #2a2a40 2px, transparent 2px),
-                linear-gradient(#2a2a40 2px, transparent 2px),
-                #1f1f35
+                repeating-linear-gradient(0deg, #2a2a40 0px, #2a2a40 16px, #1f1f35 16px, #1f1f35 32px),
+                repeating-linear-gradient(90deg, #2a2a40 0px, #2a2a40 16px, #1f1f35 16px, #1f1f35 32px)
               `,
-              backgroundSize: "16px 16px",
+              backgroundSize: "32px 32px",
             }} />
 
             {/* Top Wall */}
