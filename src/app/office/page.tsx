@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Monitor, Coffee, Code, PenTool, Search, Clock } from "lucide-react";
+import { Monitor, Coffee, Code } from "lucide-react";
 
 type Agent = {
   id: string;
@@ -14,96 +14,78 @@ type Agent = {
 const initialAgents: Agent[] = [];
 
 export default function OfficePage() {
-  const [agents] = useState<Agent[]>(initialAgents
-  </div>
-);
+  const [agents] = useState<Agent[]>(initialAgents);
 
-  const statusConfig = {
-    working: { color: "bg-emerald-400", label: "Working", icon: Code },
-    idle: { color: "bg-amber-400", label: "Idle", icon: Coffee },
-    break: { color: "bg-blue-400", label: "Break", icon: Coffee },
-    offline: { color: "bg-gray-500", label: "Offline", icon: Monitor },
+  const statusConfig: Record<string, { color: string; label: string }> = {
+    working: { color: "#10b981", label: "Working" },
+    idle: { color: "#f59e0b", label: "Idle" },
+    break: { color: "#3b82f6", label: "Break" },
+    offline: { color: "#6b7280", label: "Offline" },
   };
 
-  <div style={{ marginLeft: "80px" }}>
-    <div className="min-h-screen bg-[#0a0a0f]">
+  return (
+    <div style={{ marginLeft: "80px", minHeight: "100vh", background: "#0a0a0f", color: "white" }}>
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold mb-2">Office</h1>
-        <p className="text-gray-400">Real-time view of all agents</p>
-      </div>
-
-      {agents.length === 0 ? (
-        <div className="bg-[#121218] border border-[#1f1f2e] rounded-2xl p-12 text-center">
-          <div className="w-20 h-20 bg-[#1f1f2e] rounded-2xl mx-auto mb-4 flex items-center justify-center">
-            <Users className="w-10 h-10 text-gray-600" />
+      <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+        <span style={{ fontWeight: 600 }}>Mission Control</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
+            <div style={{ width: "8px", height: "8px", background: "#22d3ee", borderRadius: "50%" }} />
+            Mori online
           </div>
-          <h2 className="text-xl font-semibold mb-2">No Agents Yet</h2>
-          <p className="text-gray-400 mb-6">Create agents in the Team section to see them working here</p>
-          <button className="px-4 py-2 bg-cyan-500 text-black rounded-lg font-medium hover:bg-cyan-400 transition-colors">
-            <a href="/team">Create Agent</a>
-          </button>
+          <div style={{ width: "32px", height: "32px", background: "linear-gradient(to bottom right, #22d3ee, #a855f7)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>
+            L
+          </div>
         </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {agents.map((agent) => (
-            <div key={agent.id} className="bg-[#121218] border border-[#1f1f2e] rounded-2xl overflow-hidden">
-              <div className="h-32 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center relative">
-                <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-full flex items-center justify-center text-2xl font-bold">
-                  {agent.name.charAt(0)}
+      </header>
+
+      <div style={{ padding: "24px" }}>
+        <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "8px", display: "flex", alignItems: "center", gap: "8px" }}>
+          <Monitor size={24} style={{ color: "#a855f7" }} />
+          Office
+        </h1>
+        <p style={{ color: "#9ca3af", marginBottom: "32px" }}>Monitor your agents in real-time</p>
+
+        {/* Office View */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "16px" }}>
+          {/* Mori */}
+          <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px", position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", top: 0, right: 0, width: "60px", height: "60px", background: "linear-gradient(to bottom left, #22d3ee20, transparent)", borderRadius: "50%" }} />
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
+              <div style={{ width: "48px", height: "48px", background: "linear-gradient(to bottom right, #22d3ee, #10b981)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px" }}>🌿</div>
+              <div>
+                <div style={{ fontWeight: 600, display: "flex", alignItems: "center", gap: "6px" }}>
+                  Mori
+                  <Code size={14} style={{ color: "#22d3ee" }} />
                 </div>
-                <div className={`absolute top-3 right-3 w-3 h-3 rounded-full ${statusConfig[agent.status].color} animate-pulse`} />
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold">{agent.name}</h3>
-                <p className="text-sm text-gray-400">{agent.role}</p>
-                <div className="mt-3 flex items-center gap-2">
-                  <div className={`w-2 h-2 rounded-full ${statusConfig[agent.status].color}`} />
-                  <span className="text-xs text-gray-400">{statusConfig[agent.status].label}</span>
-                </div>
-                {agent.currentTask && (
-                  <p className="text-xs text-gray-500 mt-2">{agent.currentTask}</p>
-                )}
+                <div style={{ fontSize: "12px", color: "#9ca3af" }}>AI Assistant</div>
               </div>
             </div>
-          ))}
-        </div>
-      )}
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+              <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981" }} />
+              <span style={{ fontSize: "12px", color: "#10b981" }}>Working</span>
+            </div>
+            <div style={{ fontSize: "12px", color: "#6b7280" }}>Current: Waiting for input</div>
+          </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
-        <div className="bg-[#121218] border border-[#1f1f2e] rounded-xl p-4 text-center">
-          <div className="text-2xl font-bold text-emerald-400">{agents.filter(a => a.status === "working").length}</div>
-          <div className="text-xs text-gray-500">Working</div>
-        </div>
-        <div className="bg-[#121218] border border-[#1f1f2e] rounded-xl p-4 text-center">
-          <div className="text-2xl font-bold text-amber-400">{agents.filter(a => a.status === "idle").length}</div>
-          <div className="text-xs text-gray-500">Idle</div>
-        </div>
-        <div className="bg-[#121218] border border-[#1f1f2e] rounded-xl p-4 text-center">
-          <div className="text-2xl font-bold text-blue-400">{agents.filter(a => a.status === "break").length}</div>
-          <div className="text-xs text-gray-500">On Break</div>
-        </div>
-        <div className="bg-[#121218] border border-[#1f1f2e] rounded-xl p-4 text-center">
-          <div className="text-2xl font-bold text-gray-400">{agents.filter(a => a.status === "offline").length}</div>
-          <div className="text-xs text-gray-500">Offline</div>
+          {/* Leo (User) */}
+          <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px", position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", top: 0, right: 0, width: "60px", height: "60px", background: "linear-gradient(to bottom left, #a855f720, transparent)", borderRadius: "50%" }} />
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
+              <div style={{ width: "48px", height: "48px", background: "linear-gradient(to bottom right, #a855f7, #ec4899)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "bold" }}>L</div>
+              <div>
+                <div style={{ fontWeight: 600 }}>Leo</div>
+                <div style={{ fontSize: "12px", color: "#9ca3af" }}>Owner</div>
+              </div>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+              <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#22d3ee" }} />
+              <span style={{ fontSize: "12px", color: "#22d3ee" }}>Online</span>
+            </div>
+            <div style={{ fontSize: "12px", color: "#6b7280" }}>Using Mission Control</div>
+          </div>
         </div>
       </div>
     </div>
-  
-  </div>
-);
-}
-
-function Users({ className }: { className?: string }) {
-  <div style={{ marginLeft: "80px" }}>
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-    </svg>
-  
-  </div>
-);
+  );
 }

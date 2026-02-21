@@ -1,84 +1,83 @@
-"use client";
+import Link from "next/link";
+import { Brain, Search, Tag } from "lucide-react";
 
-import { useState } from "react";
-import { Plus, Search, Brain, Tag } from "lucide-react";
-
-type Memory = {
-  id: string;
-  title: string;
-  content: string;
-  category: string;
-  tags: string[];
-};
-
-const initialMemories: Memory[] = [];
+const memories = [
+  {
+    id: "1",
+    title: "Mission Control Launched",
+    content: "Built and deployed the Mission Control dashboard app for Leo",
+    category: "project",
+    date: "Feb 21, 2026",
+  },
+  {
+    id: "2",
+    title: "AI Supplement Research",
+    content: "Researched supplement subscription market - €89-129/month pricing, 60-70% margin",
+    category: "business",
+    date: "Feb 19, 2026",
+  },
+];
 
 export default function MemoryPage() {
-  const [memories, setMemories] = useState<Memory[]>(initialMemories
-  </div>
-);
-  const [searchQuery, setSearchQuery] = useState(""
-  </div>
-);
-
-  const filteredMemories = memories.filter((m) =>
-    searchQuery === "" ||
-    m.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    m.content.toLowerCase().includes(searchQuery.toLowerCase())
-  
-  </div>
-);
-
-  <div style={{ marginLeft: "80px" }}>
-    <div className="min-h-screen bg-[#0a0a0f]">
+  return (
+    <div style={{ marginLeft: "80px", minHeight: "100vh", background: "#0a0a0f", color: "white" }}>
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold mb-2">Memory</h1>
-          <p className="text-gray-400">Your long-term memory store</p>
-        </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-cyan-500 text-black rounded-lg font-medium hover:bg-cyan-400 transition-colors">
-          <Plus className="w-4 h-4" />
-          Add Memory
-        </button>
-      </div>
-
-      {/* Search */}
-      <div className="relative max-w-md mb-6">
-        <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-        <input
-          type="text"
-          placeholder="Search memories..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full bg-[#121218] border border-[#1f1f2e] rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-cyan-500/50 text-white placeholder-gray-500"
-        />
-      </div>
-
-      {memories.length === 0 ? (
-        <div className="bg-[#121218] border border-[#1f1f2e] rounded-2xl p-12 text-center">
-          <div className="w-20 h-20 bg-[#1f1f2e] rounded-2xl mx-auto mb-4 flex items-center justify-center">
-            <Brain className="w-10 h-10 text-gray-600" />
+      <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+        <span style={{ fontWeight: 600 }}>Mission Control</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
+            <div style={{ width: "8px", height: "8px", background: "#22d3ee", borderRadius: "50%" }} />
+            Mori online
           </div>
-          <h2 className="text-xl font-semibold mb-2">No Memories Yet</h2>
-          <p className="text-gray-400">Memories will appear here as you work with Mori</p>
+          <div style={{ width: "32px", height: "32px", background: "linear-gradient(to bottom right, #22d3ee, #a855f7)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>
+            L
+          </div>
         </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {filteredMemories.map((memory) => (
-            <div key={memory.id} className="bg-[#121218] border border-[#1f1f2e] rounded-xl p-5">
-              <h3 className="font-semibold mb-2">{memory.title}</h3>
-              <p className="text-sm text-gray-400 mb-3">{memory.content}</p>
-              <div className="flex items-center gap-2">
-                <Tag className="w-3 h-3 text-gray-500" />
-                <span className="text-xs text-gray-500 capitalize">{memory.category}</span>
+      </header>
+
+      <div style={{ padding: "24px" }}>
+        <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "8px", display: "flex", alignItems: "center", gap: "8px" }}>
+          <Brain size={24} style={{ color: "#a855f7" }} />
+          Memory
+        </h1>
+        <p style={{ color: "#9ca3af", marginBottom: "24px" }}>Your long-term memory store</p>
+
+        {/* Search */}
+        <div style={{ position: "relative", maxWidth: "400px", marginBottom: "24px" }}>
+          <Search style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", width: "16px", height: "16px", color: "#6b7280" }} />
+          <input
+            type="text"
+            placeholder="Search memories..."
+            style={{ 
+              width: "100%", 
+              background: "#121218", 
+              border: "1px solid #1f1f2e", 
+              borderRadius: "10px", 
+              padding: "10px 12px 10px 40px", 
+              fontSize: "14px", 
+              color: "white",
+              outline: "none"
+            }}
+          />
+        </div>
+
+        {/* Memories */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "16px" }}>
+          {memories.map((memory) => (
+            <div key={memory.id} style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px" }}>
+              <h3 style={{ fontWeight: 600, marginBottom: "8px" }}>{memory.title}</h3>
+              <p style={{ fontSize: "13px", color: "#9ca3af", marginBottom: "12px" }}>{memory.content}</p>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", fontSize: "11px", color: "#6b7280" }}>
+                <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                  <Tag size={12} />
+                  {memory.category}
+                </span>
+                <span>{memory.date}</span>
               </div>
             </div>
           ))}
         </div>
-      )}
+      </div>
     </div>
-  
-  </div>
-);
+  );
 }

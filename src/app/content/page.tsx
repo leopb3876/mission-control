@@ -1,73 +1,59 @@
-"use client";
+import Link from "next/link";
+import { FileText, Youtube, Instagram, Send, Plus } from "lucide-react";
 
-import { useState } from "react";
-import { Plus, FileText, Calendar, MoreHorizontal, Youtube, Instagram, Send } from "lucide-react";
+const content = [
+  { id: "1", title: "TikTok Shop Tutorial", platform: "youtube", stage: "idea" },
+  { id: "2", title: "Supplement Launch Post", platform: "instagram", stage: "scheduled" },
+];
 
-type ContentItem = {
-  id: string;
-  title: string;
-  platform: "youtube" | "tiktok" | "instagram" | "newsletter";
-  stage: "idea" | "script" | "thumbnail" | "filming" | "editing" | "scheduled" | "published";
-};
-
-const stages = ["idea", "script", "thumbnail", "filming", "editing", "scheduled", "published"];
-const platforms = ["youtube", "tiktok", "instagram", "newsletter"];
-
-const platformIcons: Record<string, any> = {
-  youtube: Youtube,
-  tiktok: Instagram,
-  instagram: Instagram,
-  newsletter: Send,
-};
+const stages = ["idea", "script", "filming", "editing", "scheduled", "published"];
 
 export default function ContentPage() {
-  const [content, setContent] = useState<ContentItem[]>([]
-  </div>
-);
-
-  <div style={{ marginLeft: "80px" }}>
-    <div className="min-h-screen bg-[#0a0a0f]">
+  return (
+    <div style={{ marginLeft: "80px", minHeight: "100vh", background: "#0a0a0f", color: "white" }}>
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold mb-2">Content</h1>
-          <p className="text-gray-400">Manage your content pipeline</p>
+      <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+        <span style={{ fontWeight: 600 }}>Mission Control</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
+            <div style={{ width: "8px", height: "8px", background: "#22d3ee", borderRadius: "50%" }} />
+            Mori online
+          </div>
+          <div style={{ width: "32px", height: "32px", background: "linear-gradient(to bottom right, #22d3ee, #a855f7)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>
+            L
+          </div>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-cyan-500 text-black rounded-lg font-medium hover:bg-cyan-400 transition-colors">
-          <Plus className="w-4 h-4" />
+      </header>
+
+      <div style={{ padding: "24px" }}>
+        <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "8px", display: "flex", alignItems: "center", gap: "8px" }}>
+          <FileText size={24} style={{ color: "#a855f7" }} />
+          Content
+        </h1>
+        <p style={{ color: "#9ca3af", marginBottom: "24px" }}>Manage your content pipeline</p>
+
+        {/* Content Grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "16px", marginBottom: "24px" }}>
+          {content.map((item) => (
+            <div key={item.id} style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "16px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                {item.platform === "youtube" && <Youtube size={16} style={{ color: "#ef4444" }} />}
+                {item.platform === "instagram" && <Instagram size={16} style={{ color: "#ec4899" }} />}
+                <span style={{ fontSize: "11px", color: "#6b7280", textTransform: "capitalize" }}>{item.platform}</span>
+              </div>
+              <h3 style={{ fontWeight: 500, marginBottom: "8px" }}>{item.title}</h3>
+              <span style={{ fontSize: "11px", background: "#1f1f2e", padding: "4px 8px", borderRadius: "4px", color: "#9ca3af", textTransform: "capitalize" }}>
+                {item.stage}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <button style={{ display: "flex", alignItems: "center", gap: "6px", background: "transparent", border: "1px dashed #22d3ee", color: "#22d3ee", padding: "12px 24px", borderRadius: "8px", cursor: "pointer" }}>
+          <Plus size={16} />
           Add Content
         </button>
       </div>
-
-      {content.length === 0 ? (
-        <div className="bg-[#121218] border border-[#1f1f2e] rounded-2xl p-12 text-center">
-          <div className="w-20 h-20 bg-[#1f1f2e] rounded-2xl mx-auto mb-4 flex items-center justify-center">
-            <FileText className="w-10 h-10 text-gray-600" />
-          </div>
-          <h2 className="text-xl font-semibold mb-2">No Content Yet</h2>
-          <p className="text-gray-400">Add your first piece of content to get started</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {content.map((item) => {
-            const PlatformIcon = platformIcons[item.platform];
-            <div style={{ marginLeft: "80px" }}>
-              <div key={item.id} className="bg-[#121218] border border-[#1f1f2e] rounded-xl p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <PlatformIcon className="w-4 h-4 text-gray-400" />
-                  <span className="text-xs text-gray-500 capitalize">{item.platform}</span>
-                </div>
-                <h3 className="font-medium mb-2">{item.title}</h3>
-                <span className="text-xs px-2 py-1 bg-[#1f1f2e] rounded text-gray-400 capitalize">{item.stage}</span>
-              </div>
-            
-  </div>
-);
-          })}
-        </div>
-      )}
     </div>
-  
-  </div>
-);
+  );
 }

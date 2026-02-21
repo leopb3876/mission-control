@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, TrendingUp, TrendingDown, DollarSign, Wallet, PiggyBank, Target } from "lucide-react";
+import { Plus, TrendingUp, TrendingDown, DollarSign } from "lucide-react";
 
 type Transaction = {
   id: string;
@@ -13,93 +13,99 @@ type Transaction = {
 };
 
 export default function ProfitsPage() {
-  const [transactions, setTransactions] = useState<Transaction[]>([]
-  </div>
-);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   
   const totalIncome = transactions
     .filter((t) => t.type === "income")
-    .reduce((sum, t) => sum + t.amount, 0
-  </div>
-);
+    .reduce((sum, t) => sum + t.amount, 0);
   
   const totalExpenses = transactions
     .filter((t) => t.type === "expense")
-    .reduce((sum, t) => sum + t.amount, 0
-  </div>
-);
+    .reduce((sum, t) => sum + t.amount, 0);
   
   const profit = totalIncome - totalExpenses;
 
-  const statCards = [
-    { label: "Total Income", value: `$${totalIncome.toLocaleString()}`, icon: TrendingUp, color: "text-emerald-400" },
-    { label: "Total Expenses", value: `$${totalExpenses.toLocaleString()}`, icon: TrendingDown, color: "text-red-400" },
-    { label: "Net Profit", value: `$${profit.toLocaleString()}`, icon: DollarSign, color: profit >= 0 ? "text-cyan-400" : "text-red-400" },
-    { label: "Transactions", value: transactions.length.toString(), icon: Wallet, color: "text-purple-400" },
-  ];
-
-  <div style={{ marginLeft: "80px" }}>
-    <div className="min-h-screen bg-[#0a0a0f]">
+  return (
+    <div style={{ marginLeft: "80px", minHeight: "100vh", background: "#0a0a0f", color: "white" }}>
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold mb-2">Profits</h1>
-          <p className="text-gray-400">Track your revenue and expenses</p>
+      <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+        <span style={{ fontWeight: 600 }}>Mission Control</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
+            <div style={{ width: "8px", height: "8px", background: "#22d3ee", borderRadius: "50%" }} />
+            Mori online
+          </div>
+          <div style={{ width: "32px", height: "32px", background: "linear-gradient(to bottom right, #22d3ee, #a855f7)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>
+            L
+          </div>
         </div>
-      </div>
+      </header>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        {statCards.map((stat, i) => {
-          const Icon = stat.icon;
-          <div style={{ marginLeft: "80px" }}>
-            <div key={i} className="bg-[#121218] border border-[#1f1f2e] rounded-xl p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-gray-500">{stat.label}</span>
-                <Icon className={`w-4 h-4 ${stat.color}`} />
-              </div>
-              <div className={`text-xl font-bold ${stat.color}`}>{stat.value}</div>
+      <div style={{ padding: "24px" }}>
+        <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "8px", display: "flex", alignItems: "center", gap: "8px" }}>
+          <DollarSign size={24} style={{ color: "#10b981" }} />
+          Profits
+        </h1>
+        <p style={{ color: "#9ca3af", marginBottom: "32px" }}>Track your income & expenses</p>
+
+        {/* Stats Cards */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px", marginBottom: "32px" }}>
+          <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px", color: "#9ca3af", fontSize: "14px" }}>
+              <TrendingUp size={16} style={{ color: "#10b981" }} />
+              Income
             </div>
-          
-  </div>
-);
-        })}
-      </div>
-
-      {/* Transactions */}
-      <div className="bg-[#121218] border border-[#1f1f2e] rounded-xl">
-        <div className="p-4 border-b border-[#1f1f2e] flex items-center justify-between">
-          <h2 className="font-semibold">Transactions</h2>
-          <button className="flex items-center gap-1 text-sm text-cyan-400 hover:text-cyan-300">
-            <Plus className="w-4 h-4" />
-            Add
-          </button>
+            <div style={{ fontSize: "28px", fontWeight: "bold", color: "#10b981" }}>€{totalIncome.toLocaleString()}</div>
+          </div>
+          <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px", color: "#9ca3af", fontSize: "14px" }}>
+              <TrendingDown size={16} style={{ color: "#ef4444" }} />
+              Expenses
+            </div>
+            <div style={{ fontSize: "28px", fontWeight: "bold", color: "#ef4444" }}>€{totalExpenses.toLocaleString()}</div>
+          </div>
+          <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px", color: "#9ca3af", fontSize: "14px" }}>
+              <DollarSign size={16} style={{ color: "#22d3ee" }} />
+              Net Profit
+            </div>
+            <div style={{ fontSize: "28px", fontWeight: "bold", color: profit >= 0 ? "#22d3ee" : "#ef4444" }}>
+              €{profit.toLocaleString()}
+            </div>
+          </div>
         </div>
 
-        {transactions.length === 0 ? (
-          <div className="p-12 text-center">
-            <PiggyBank className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-            <p className="text-gray-400 mb-2">No transactions yet</p>
-            <p className="text-sm text-gray-600">Add your first income or expense to start tracking</p>
+        {/* Transactions */}
+        <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+            <h2 style={{ fontWeight: 600 }}>Transactions</h2>
+            <button style={{ display: "flex", alignItems: "center", gap: "6px", background: "#22d3ee", color: "#0a0a0f", border: "none", padding: "8px 16px", borderRadius: "6px", fontWeight: 500, cursor: "pointer" }}>
+              <Plus size={14} />
+              Add
+            </button>
           </div>
-        ) : (
-          <div className="divide-y divide-[#1f1f2e]">
-            {transactions.map((t) => (
-              <div key={t.id} className="p-4 flex items-center justify-between">
-                <div>
-                  <div className="font-medium">{t.description}</div>
-                  <div className="text-xs text-gray-500">{t.category} • {t.date}</div>
+          
+          {transactions.length === 0 ? (
+            <div style={{ textAlign: "center", padding: "40px", color: "#6b7280" }}>
+              <p>No transactions yet</p>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {transactions.map((t) => (
+                <div key={t.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px", background: "#0a0a0f", borderRadius: "8px" }}>
+                  <div>
+                    <div style={{ fontWeight: 500 }}>{t.description}</div>
+                    <div style={{ fontSize: "12px", color: "#6b7280" }}>{t.category} • {t.date}</div>
+                  </div>
+                  <div style={{ color: t.type === "income" ? "#10b981" : "#ef4444", fontWeight: 600 }}>
+                    {t.type === "income" ? "+" : "-"}€{t.amount}
+                  </div>
                 </div>
-                <div className={t.type === "income" ? "text-emerald-400" : "text-red-400"}>
-                  {t.type === "income" ? "+" : "-"}${t.amount}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
-  
-  </div>
-);
+  );
 }

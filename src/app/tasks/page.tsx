@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Search, MoreHorizontal } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 
 type Task = {
   id: string;
@@ -40,133 +40,171 @@ const initialTasks: Task[] = [
 ];
 
 const columns = [
-  { id: "todo", label: "To Do", color: "bg-gray-500" },
-  { id: "in_progress", label: "In Progress", color: "bg-cyan-400" },
-  { id: "review", label: "Review", color: "bg-amber-500" },
-  { id: "done", label: "Done", color: "bg-emerald-500" },
+  { id: "todo", label: "To Do", color: "#6b7280" },
+  { id: "in_progress", label: "In Progress", color: "#22d3ee" },
+  { id: "review", label: "Review", color: "#f59e0b" },
+  { id: "done", label: "Done", color: "#10b981" },
 ];
 
 export default function TasksPage() {
-  const [tasks, setTasks] = useState<Task[]>(initialTasks
-  </div>
-);
-  const [searchQuery, setSearchQuery] = useState(""
-  </div>
-);
-  const [draggedTask, setDraggedTask] = useState<string | null>(null
-  </div>
-);
+  const [tasks, setTasks] = useState<Task[]>(initialTasks);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [draggedTask, setDraggedTask] = useState<string | null>(null);
 
   const filteredTasks = tasks.filter((task) =>
     searchQuery === "" ||
     task.title.toLowerCase().includes(searchQuery.toLowerCase())
-  
-  </div>
-);
+  );
 
   const handleDrop = (status: string) => {
     if (draggedTask) {
       setTasks(tasks.map((t) =>
         t.id === draggedTask ? { ...t, status: status as Task["status"] } : t
-      )
-  </div>
-);
-      setDraggedTask(null
-  </div>
-);
+      ));
+      setDraggedTask(null);
     }
   };
 
-  const priorityColors = {
-    low: "bg-emerald-500/20 text-emerald-400",
-    medium: "bg-cyan-500/20 text-cyan-400",
-    high: "bg-amber-500/20 text-amber-400",
-    urgent: "bg-red-500/20 text-red-400",
+  const priorityColors: Record<string, string> = {
+    low: "#10b981",
+    medium: "#22d3ee",
+    high: "#f59e0b",
+    urgent: "#ef4444",
   };
 
-  const statusColors = {
-    todo: "bg-gray-500/20 text-gray-400",
-    in_progress: "bg-cyan-500/20 text-cyan-400",
-    review: "bg-amber-500/20 text-amber-400",
-    done: "bg-emerald-500/20 text-emerald-400",
+  const statusColors: Record<string, string> = {
+    todo: "#6b7280",
+    in_progress: "#22d3ee",
+    review: "#f59e0b",
+    done: "#10b981",
   };
 
-  <div style={{ marginLeft: "80px" }}>
-    <div className="min-h-screen bg-[#0a0a0f]">
+  // Calculate progress
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter(t => t.status === "done").length;
+  const progressPercent = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+  return (
+    <div style={{ marginLeft: "80px", minHeight: "100vh", background: "#0a0a0f", color: "white" }}>
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold mb-2">Tasks</h1>
-        <p className="text-gray-400">Track and manage your tasks</p>
-      </div>
+      <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+        <span style={{ fontWeight: 600 }}>Mission Control</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
+            <div style={{ width: "8px", height: "8px", background: "#22d3ee", borderRadius: "50%" }} />
+            Mori online
+          </div>
+          <div style={{ width: "32px", height: "32px", background: "linear-gradient(to bottom right, #22d3ee, #a855f7)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>
+            L
+          </div>
+        </div>
+      </header>
 
-      {/* Search */}
-      <div className="relative max-w-md mb-6">
-        <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-        <input
-          type="text"
-          placeholder="Search tasks..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full bg-[#121218] border border-[#1f1f2e] rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-cyan-500/50 text-white placeholder-gray-500"
-        />
-      </div>
-
-      {/* Kanban Board */}
-      <div className="flex gap-4 overflow-x-auto pb-4">
-        {columns.map((column) => (
-          <div
-            key={column.id}
-            className="flex-shrink-0 w-72"
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={() => handleDrop(column.id)}
-          >
-            {/* Column Header */}
-            <div className="flex items-center gap-2 mb-3">
-              <div className={`w-2 h-2 rounded-full ${column.color}`} />
-              <h3 className="font-medium text-sm text-gray-300">{column.label}</h3>
-              <span className="text-xs text-gray-500 bg-[#121218] px-2 py-0.5 rounded">
-                {filteredTasks.filter((t) => t.status === column.id).length}
-              </span>
+      <div style={{ padding: "24px" }}>
+        {/* Title & Progress */}
+        <div style={{ marginBottom: "24px" }}>
+          <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "8px" }}>Tasks</h1>
+          <p style={{ color: "#9ca3af", marginBottom: "16px" }}>Track and manage your tasks</p>
+          
+          {/* Progress Bar */}
+          <div style={{ background: "#1f1f2e", borderRadius: "8px", padding: "16px", marginBottom: "24px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
+              <span style={{ fontSize: "14px", fontWeight: 600 }}>Progress</span>
+              <span style={{ fontSize: "14px", color: "#22d3ee" }}>{progressPercent}%</span>
             </div>
+            <div style={{ height: "8px", background: "#0a0a0f", borderRadius: "4px", overflow: "hidden" }}>
+              <div style={{ 
+                height: "100%", 
+                width: `${progressPercent}%`, 
+                background: "linear-gradient(to right, #22d3ee, #10b981)",
+                borderRadius: "4px",
+                transition: "width 0.3s ease"
+              }} />
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "8px", fontSize: "12px", color: "#9ca3af" }}>
+              <span>{completedTasks} completed</span>
+              <span>{totalTasks - completedTasks} remaining</span>
+            </div>
+          </div>
+        </div>
 
-            {/* Tasks */}
-            <div className="space-y-2">
-              {filteredTasks
-                .filter((task) => task.status === column.id)
-                .map((task) => (
+        {/* Search */}
+        <div style={{ position: "relative", maxWidth: "400px", marginBottom: "24px" }}>
+          <Search style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", width: "16px", height: "16px", color: "#6b7280" }} />
+          <input
+            type="text"
+            placeholder="Search tasks..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{ 
+              width: "100%", 
+              background: "#121218", 
+              border: "1px solid #1f1f2e", 
+              borderRadius: "10px", 
+              padding: "10px 12px 10px 40px", 
+              fontSize: "14px", 
+              color: "white",
+              outline: "none"
+            }}
+          />
+        </div>
+
+        {/* Kanban Board */}
+        <div style={{ display: "flex", gap: "16px", overflowX: "auto", paddingBottom: "16px" }}>
+          {columns.map((column) => (
+            <div
+              key={column.id}
+              style={{ minWidth: "280px", flexShrink: 0 }}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={() => handleDrop(column.id)}
+            >
+              {/* Column Header */}
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: column.color }} />
+                <span style={{ fontWeight: 500, fontSize: "14px" }}>{column.label}</span>
+                <span style={{ fontSize: "11px", background: "#121218", padding: "2px 8px", borderRadius: "4px", color: "#9ca3af" }}>
+                  {filteredTasks.filter((t) => t.status === column.id).length}
+                </span>
+              </div>
+
+              {/* Tasks */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                {filteredTasks.filter((t) => t.status === column.id).map((task) => (
                   <div
                     key={task.id}
                     draggable
                     onDragStart={() => setDraggedTask(task.id)}
-                    className="bg-[#121218] border border-[#1f1f2e] rounded-xl p-4 cursor-grab active:cursor-grabbing hover:border-cyan-500/30 transition-all"
+                    style={{ 
+                      background: "#121218", 
+                      border: "1px solid #1f1f2e", 
+                      borderRadius: "10px", 
+                      padding: "12px",
+                      cursor: "grab"
+                    }}
                   >
-                    <div className="flex items-start justify-between mb-2">
-                      <span className={`text-xs px-2 py-0.5 rounded ${priorityColors[task.priority]}`}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: "8px" }}>
+                      <span style={{ fontWeight: 500, fontSize: "14px" }}>{task.title}</span>
+                    </div>
+                    <p style={{ fontSize: "12px", color: "#9ca3af", marginBottom: "8px" }}>{task.description}</p>
+                    <div style={{ display: "flex", gap: "6px" }}>
+                      <span style={{ 
+                        fontSize: "10px", 
+                        background: `${priorityColors[task.priority]}20`, 
+                        color: priorityColors[task.priority],
+                        padding: "2px 6px", 
+                        borderRadius: "4px",
+                        textTransform: "capitalize"
+                      }}>
                         {task.priority}
                       </span>
-                      <button className="text-gray-500 hover:text-white">
-                        <MoreHorizontal className="w-4 h-4" />
-                      </button>
                     </div>
-                    <h4 className="font-medium mb-1 text-sm">{task.title}</h4>
-                    <p className="text-xs text-gray-500 line-clamp-2">{task.description}</p>
-                    {task.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mt-3">
-                        {task.tags.map((tag) => (
-                          <span key={tag} className="text-xs px-2 py-0.5 bg-[#0a0a0f] rounded text-gray-500">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
                   </div>
                 ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
-  
-  </div>
-);
+  );
 }
