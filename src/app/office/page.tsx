@@ -113,9 +113,9 @@ export default function OfficePage() {
   }, []);
 
   return (
-    <div style={{ marginLeft: "80px", minHeight: "100vh", background: "#0a0a0f", color: "white", padding: "24px", display: "flex", gap: "24px" }}>
+    <div style={{ marginLeft: "80px", height: "100vh", background: "#0a0a0f", color: "white", padding: "24px", display: "flex", flexDirection: "column", overflow: "hidden" }}>
       {/* Header */}
-      <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0, zIndex: 10, borderRadius: "12px", marginBottom: "16px", width: "100%" }}>
+      <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", borderRadius: "12px", flexShrink: 0 }}>
         <span style={{ fontWeight: 600 }}>Mission Control</span>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
@@ -128,15 +128,15 @@ export default function OfficePage() {
         </div>
       </header>
 
-      <div style={{ display: "flex", gap: "24px", width: "100%" }}>
-        {/* Office Room - Pixel Art Style */}
-        <div style={{ flex: 1 }}>
-          <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "8px" }}>Office</h1>
-          <p style={{ color: "#9ca3af", marginBottom: "16px" }}>Your virtual workspace</p>
+      {/* Main Content */}
+      <div style={{ display: "flex", gap: "24px", flex: 1, overflow: "hidden", marginTop: "16px" }}>
+        {/* Office - fills remaining space */}
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+          <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "8px", flexShrink: 0 }}>Office</h1>
+          <p style={{ color: "#9ca3af", marginBottom: "16px", flexShrink: 0 }}>Your virtual workspace</p>
 
           <div style={{
             flex: 1,
-            height: "420px",
             position: "relative",
             borderRadius: "0px",
             overflow: "hidden",
@@ -336,8 +336,8 @@ export default function OfficePage() {
           </div>
         </div>
 
-        {/* Live Activity Sidebar */}
-        <div style={{ width: "260px", background: "#121218", borderRadius: "0px", border: "1px solid #1f1f2e", padding: "16px", height: "fit-content" }}>
+        {/* Live Activity Sidebar - stretches to bottom */}
+        <div style={{ width: "260px", background: "#121218", border: "1px solid #1f1f2e", padding: "16px", display: "flex", flexDirection: "column" }}>
           <h2 style={{ fontSize: "16px", fontWeight: 600, marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
             <div style={{ width: "8px", height: "8px", background: "#10b981" }} />
             Live Activity
