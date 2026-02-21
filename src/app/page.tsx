@@ -2,336 +2,89 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
-  LayoutDashboard,
   CheckSquare,
   FileText,
   Calendar,
   Brain,
-  Users,
-  Building2,
   TrendingUp,
-  ChevronLeft,
-  ChevronRight,
-  Zap,
+  Rocket,
 } from "lucide-react";
 
-const navItems = [
-  { href: "/", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/tasks", label: "Tasks", icon: CheckSquare },
-  { href: "/content", label: "Content", icon: FileText },
-  { href: "/calendar", label: "Calendar", icon: Calendar },
-  { href: "/memory", label: "Memory", icon: Brain },
-  { href: "/team", label: "Team", icon: Users },
-  { href: "/office", label: "Office", icon: Building2 },
-  { href: "/profits", label: "Profits", icon: TrendingUp },
-];
-
 export default function Home() {
-  const pathname = usePathname();
-  const [collapsed, setCollapsed] = useState(false);
+  const quickLinks = [
+    { href: "/tasks", label: "Tasks", icon: CheckSquare, color: "cyan" },
+    { href: "/content", label: "Content", icon: FileText, color: "purple" },
+    { href: "/calendar", label: "Calendar", icon: Calendar, color: "amber" },
+    { href: "/profits", label: "Profits", icon: TrendingUp, color: "emerald" },
+    { href: "/upgrades", label: "Upgrades", icon: Rocket, color: "pink" },
+  ];
 
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar */}
-      <aside
-        className={`${collapsed ? "w-16" : "w-60"} bg-card border-r border-border flex flex-col transition-all duration-300 fixed h-full z-50`}
-      >
-        {/* Logo */}
-        <div className="p-4 border-b border-border flex items-center justify-between">
-          {!collapsed && (
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                <Zap className="w-5 h-5 text-white" />
-              </div>
-              <span className="font-bold text-lg">Mission Control</span>
-            </div>
-          )}
-          {collapsed && (
-            <div className="w-8 h-8 mx-auto bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-              <Zap className="w-5 h-5 text-white" />
-            </div>
-          )}
-        </div>
+    <div className="min-h-screen bg-[#0a0a0f]">
+      {/* Welcome */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold mb-2">Welcome back</h1>
+        <p className="text-gray-400">Here's what's happening with your projects</p>
+      </div>
 
-        {/* Nav Items */}
-        <nav className="flex-1 p-2">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg mb-1 transition-all ${
-                  isActive
-                    ? "bg-primary/10 text-primary"
-                    : "text-gray-400 hover:bg-border hover:text-white"
-                }`}
-              >
-                <Icon className="w-5 h-5 flex-shrink-0" />
-                {!collapsed && <span>{item.label}</span>}
-              </Link>
-            );
-          })}
-        </nav>
+      {/* Quick Links */}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
+        {quickLinks.map((link) => {
+          const Icon = link.icon;
+          const colors: Record<string, string> = {
+            cyan: "from-cyan-500/20 to-cyan-500/5 border-cyan-500/30 text-cyan-400",
+            purple: "from-purple-500/20 to-purple-500/5 border-purple-500/30 text-purple-400",
+            amber: "from-amber-500/20 to-amber-500/5 border-amber-500/30 text-amber-400",
+            emerald: "from-emerald-500/20 to-emerald-500/5 border-emerald-500/30 text-emerald-400",
+            pink: "from-pink-500/20 to-pink-500/5 border-pink-500/30 text-pink-400",
+          };
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`bg-gradient-to-br ${colors[link.color]} border rounded-xl p-4 hover:scale-[1.02] transition-transform`}
+            >
+              <Icon className="w-5 h-5 mb-2" />
+              <div className="font-medium text-sm">{link.label}</div>
+            </Link>
+          );
+        })}
+      </div>
 
-        {/* Collapse Button */}
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="p-3 border-t border-border text-gray-400 hover:text-white transition-colors flex items-center justify-center"
-        >
-          {collapsed ? (
-            <ChevronRight className="w-5 h-5" />
-          ) : (
-            <ChevronLeft className="w-5 h-5" />
-          )}
-        </button>
-      </aside>
-
-      {/* Main Content */}
-      <main className={`flex-1 ${collapsed ? "ml-16" : "ml-60"} transition-all duration-300`}>
-        {/* Header */}
-        <header className="h-16 bg-card border-b border-border flex items-center justify-between px-6 sticky top-0 z-40">
-          <h1 className="text-xl font-semibold">
-            {navItems.find((n) => n.href === pathname)?.label || "Dashboard"}
-          </h1>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-success rounded-full animate-pulse-dot" />
-              <span className="text-sm text-gray-400">Mori is online</span>
-            </div>
-            <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-sm font-bold">
-              L
-            </div>
+      {/* Recent Activity */}
+      <div className="bg-[#121218] border border-[#1f1f2e] rounded-xl p-6">
+        <h2 className="font-semibold mb-4">Recent Activity</h2>
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <div className="w-2 h-2 rounded-full bg-cyan-400" />
+            <span className="text-sm text-gray-400">Mission Control deployed</span>
+            <span className="text-xs text-gray-600 ml-auto">Just now</span>
           </div>
-        </header>
-
-        {/* Dashboard Content */}
-        <div className="p-6">
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <StatCard
-              label="Active Tasks"
-              value="12"
-              sublabel="3 urgent"
-              color="primary"
-            />
-            <StatCard
-              label="Content in Pipeline"
-              value="8"
-              sublabel="2 scheduled"
-              color="secondary"
-            />
-            <StatCard
-              label="This Month Revenue"
-              value="$2,450"
-              sublabel="+12% vs last"
-              color="success"
-            />
-            <StatCard
-              label="Active Ventures"
-              value="3"
-              sublabel="Research, Discord, SaaS"
-              color="warning"
-            />
+          <div className="flex items-center gap-3">
+            <div className="w-2 h-2 rounded-full bg-emerald-400" />
+            <span className="text-sm text-gray-400">Research complete: 37 ideas</span>
+            <span className="text-xs text-gray-600 ml-auto">Today</span>
           </div>
-
-          {/* Quick Actions */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Recent Tasks */}
-            <div className="card p-5">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold">Recent Tasks</h2>
-                <Link href="/tasks" className="text-primary text-sm hover:underline">
-                  View all
-                </Link>
-              </div>
-              <div className="space-y-3">
-                <TaskPreview
-                  title="Research TikTok Shop products"
-                  assignee="mori"
-                  status="in_progress"
-                  priority="high"
-                />
-                <TaskPreview
-                  title="Build landing page"
-                  assignee="leo"
-                  status="todo"
-                  priority="medium"
-                />
-                <TaskPreview
-                  title="Set up Discord monetization"
-                  assignee="mori"
-                  status="done"
-                  priority="low"
-                />
-              </div>
-            </div>
-
-            {/* Content Pipeline */}
-            <div className="card p-5">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold">Content Pipeline</h2>
-                <Link href="/content" className="text-primary text-sm hover:underline">
-                  View all
-                </Link>
-              </div>
-              <div className="space-y-3">
-                <ContentPreview
-                  title="How to Start a Discord Community"
-                  stage="script"
-                  platform="youtube"
-                />
-                <ContentPreview
-                  title="Best AI Tools for Students"
-                  stage="editing"
-                  platform="tiktok"
-                />
-                <ContentPreview
-                  title="Weekly Crypto Trends"
-                  stage="scheduled"
-                  platform="newsletter"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Upcoming */}
-          <div className="mt-6 card p-5">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold">Upcoming Events</h2>
-              <Link href="/calendar" className="text-primary text-sm hover:underline">
-                View calendar
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <EventCard
-                title="Research Cron"
-                time="Tomorrow, 10:30 AM"
-                type="cron"
-                color="secondary"
-              />
-              <EventCard
-                title="Content Review: Discord Video"
-                time="Tomorrow, 2:00 PM"
-                type="content"
-                color="primary"
-              />
-              <EventCard
-                title="Weekly Trend Report"
-                time="Monday, 9:00 AM"
-                type="task"
-                color="warning"
-              />
-            </div>
+          <div className="flex items-center gap-3">
+            <div className="w-2 h-2 rounded-full bg-purple-400" />
+            <span className="text-sm text-gray-400">Tavily API installed</span>
+            <span className="text-xs text-gray-600 ml-auto">Today</span>
           </div>
         </div>
-      </main>
-    </div>
-  );
-}
-
-function StatCard({
-  label,
-  value,
-  sublabel,
-  color,
-}: {
-  label: string;
-  value: string;
-  sublabel: string;
-  color: "primary" | "secondary" | "success" | "warning";
-}) {
-  const colors = {
-    primary: "text-primary",
-    secondary: "text-secondary",
-    success: "text-success",
-    warning: "text-warning",
-  };
-  return (
-    <div className="card p-4">
-      <div className="text-sm text-gray-400 mb-1">{label}</div>
-      <div className={`text-2xl font-bold ${colors[color]}`}>{value}</div>
-      <div className="text-xs text-gray-500">{sublabel}</div>
-    </div>
-  );
-}
-
-function TaskPreview({
-  title,
-  assignee,
-  status,
-  priority,
-}: {
-  title: string;
-  assignee: string;
-  status: string;
-  priority: string;
-}) {
-  return (
-    <div className="flex items-center justify-between p-3 bg-background rounded-lg">
-      <div className="flex items-center gap-3">
-        <div className={`w-2 h-2 rounded-full ${
-          status === "done" ? "bg-success" : status === "in_progress" ? "bg-primary" : "bg-gray-500"
-        }`} />
-        <span className="text-sm truncate max-w-[180px]">{title}</span>
       </div>
-      <div className="flex items-center gap-2">
-        <span className={`text-xs px-2 py-0.5 rounded status-${status.replace("_", "-")}`}>
-          {status.replace("_", " ")}
-        </span>
-        <span className={`text-xs px-2 py-0.5 rounded priority-${priority}`}>
-          {assignee}
-        </span>
-      </div>
-    </div>
-  );
-}
 
-function ContentPreview({
-  title,
-  stage,
-  platform,
-}: {
-  title: string;
-  stage: string;
-  platform: string;
-}) {
-  return (
-    <div className={`flex items-center justify-between p-3 bg-background rounded-lg stage-${stage}`}>
-      <div className="flex items-center gap-3">
-        <span className="text-xs uppercase px-2 py-0.5 bg-card rounded">{platform}</span>
-        <span className="text-sm truncate max-w-[160px]">{title}</span>
+      {/* Getting Started */}
+      <div className="mt-6 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-500/20 rounded-xl p-6">
+        <h3 className="font-semibold mb-2">🚀 Getting Started</h3>
+        <p className="text-sm text-gray-400 mb-4">Here are some things you can do:</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+          <a href="/tasks" className="text-cyan-400 hover:underline">→ Create your first task</a>
+          <a href="/content" className="text-cyan-400 hover:underline">→ Add content to pipeline</a>
+          <a href="/upgrades" className="text-cyan-400 hover:underline">→ Check out upgrades</a>
+          <a href="/team" className="text-cyan-400 hover:underline">→ Create an agent</a>
+        </div>
       </div>
-      <span className="text-xs text-gray-400 capitalize">{stage.replace("_", " ")}</span>
-    </div>
-  );
-}
-
-function EventCard({
-  title,
-  time,
-  type,
-  color,
-}: {
-  title: string;
-  time: string;
-  type: string;
-  color: string;
-}) {
-  const colors = {
-    primary: "border-primary/30 bg-primary/5",
-    secondary: "border-secondary/30 bg-secondary/5",
-    success: "border-success/30 bg-success/5",
-    warning: "border-warning/30 bg-warning/5",
-  };
-  return (
-    <div className={`p-4 rounded-lg border ${colors[color as keyof typeof colors]}`}>
-      <div className="text-sm font-medium">{title}</div>
-      <div className="text-xs text-gray-400 mt-1">{time}</div>
-      <div className="text-xs text-gray-500 mt-1 capitalize">{type}</div>
     </div>
   );
 }
