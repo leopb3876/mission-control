@@ -1,90 +1,120 @@
-"use client";
+import "./globals.css";
+import { LayoutDashboard, CheckSquare, FileText, Calendar, Brain, Users, Building2, TrendingUp, Rocket } from "lucide-react";
 
-import { useState } from "react";
-import Link from "next/link";
-import {
-  CheckSquare,
-  FileText,
-  Calendar,
-  Brain,
-  TrendingUp,
-  Rocket,
-} from "lucide-react";
+const navItems = [
+  { href: "#", label: "Dashboard", icon: LayoutDashboard },
+  { href: "#tasks", label: "Tasks", icon: CheckSquare },
+  { href: "#content", label: "Content", icon: FileText },
+  { href: "#calendar", label: "Calendar", icon: Calendar },
+  { href: "#memory", label: "Memory", icon: Brain },
+  { href: "#team", label: "Team", icon: Users },
+  { href: "#office", label: "Office", icon: Building2 },
+  { href: "#profits", label: "Profits", icon: TrendingUp },
+  { href: "#upgrades", label: "Upgrades", icon: Rocket },
+];
 
 export default function Home() {
-  const quickLinks = [
-    { href: "/tasks", label: "Tasks", icon: CheckSquare, color: "cyan" },
-    { href: "/content", label: "Content", icon: FileText, color: "purple" },
-    { href: "/calendar", label: "Calendar", icon: Calendar, color: "amber" },
-    { href: "/profits", label: "Profits", icon: TrendingUp, color: "emerald" },
-    { href: "/upgrades", label: "Upgrades", icon: Rocket, color: "pink" },
-  ];
-
   return (
-    <div className="min-h-screen bg-[#0a0a0f]">
-      {/* Welcome */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold mb-2">Welcome back</h1>
-        <p className="text-gray-400">Here's what's happening with your projects</p>
-      </div>
+    <div style={{ minHeight: "100vh", background: "#0a0a0f", color: "white", display: "flex" }}>
+      {/* Sidebar */}
+      <aside style={{ width: "64px", background: "#121218", borderRight: "1px solid #1f1f2e", padding: "12px", display: "flex", flexDirection: "column" }}>
+        <div style={{ width: "40px", height: "40px", background: "linear-gradient(to bottom right, #22d3ee, #0891b2)", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "24px" }}>
+          <span style={{ fontSize: "20px" }}>⚡</span>
+        </div>
+        <nav style={{ flex: 1, display: "flex", flexDirection: "column", gap: "4px" }}>
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                title={item.label}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "12px",
+                  borderRadius: "10px",
+                  color: "#6b7280",
+                  textDecoration: "none",
+                  transition: "all 0.2s",
+                }}
+              >
+                <Icon size={20} />
+              </a>
+            );
+          })}
+        </nav>
+      </aside>
 
-      {/* Quick Links */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
-        {quickLinks.map((link) => {
-          const Icon = link.icon;
-          const colors: Record<string, string> = {
-            cyan: "from-cyan-500/20 to-cyan-500/5 border-cyan-500/30 text-cyan-400",
-            purple: "from-purple-500/20 to-purple-500/5 border-purple-500/30 text-purple-400",
-            amber: "from-amber-500/20 to-amber-500/5 border-amber-500/30 text-amber-400",
-            emerald: "from-emerald-500/20 to-emerald-500/5 border-emerald-500/30 text-emerald-400",
-            pink: "from-pink-500/20 to-pink-500/5 border-pink-500/30 text-pink-400",
-          };
-          return (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`bg-gradient-to-br ${colors[link.color]} border rounded-xl p-4 hover:scale-[1.02] transition-transform`}
-            >
-              <Icon className="w-5 h-5 mb-2" />
-              <div className="font-medium text-sm">{link.label}</div>
-            </Link>
-          );
-        })}
-      </div>
+      {/* Main */}
+      <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        {/* Header */}
+        <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px" }}>
+          <span style={{ fontWeight: 600 }}>Mission Control</span>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
+              <div style={{ width: "8px", height: "8px", background: "#22d3ee", borderRadius: "50%" }} />
+              Mori online
+            </div>
+            <div style={{ width: "32px", height: "32px", background: "linear-gradient(to bottom right, #22d3ee, #a855f7)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>
+              L
+            </div>
+          </div>
+        </header>
 
-      {/* Recent Activity */}
-      <div className="bg-[#121218] border border-[#1f1f2e] rounded-xl p-6">
-        <h2 className="font-semibold mb-4">Recent Activity</h2>
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-cyan-400" />
-            <span className="text-sm text-gray-400">Mission Control deployed</span>
-            <span className="text-xs text-gray-600 ml-auto">Just now</span>
+        {/* Content */}
+        <div style={{ flex: 1, padding: "24px" }}>
+          <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "8px" }}>Welcome back</h1>
+          <p style={{ color: "#9ca3af", marginBottom: "24px" }}>Here&apos;s what&apos;s happening with your projects</p>
+
+          {/* Quick Links */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "12px", marginBottom: "24px" }}>
+            {[
+              { label: "Tasks", color: "#22d3ee" },
+              { label: "Content", color: "#a855f7" },
+              { label: "Calendar", color: "#f59e0b" },
+              { label: "Profits", color: "#10b981" },
+              { label: "Upgrades", color: "#ec4899" },
+            ].map((item) => (
+              <a
+                key={item.label}
+                href="#"
+                style={{
+                  background: `linear-gradient(to bottom right, ${item.color}20, ${item.color}05)`,
+                  border: `1px solid ${item.color}30`,
+                  borderRadius: "12px",
+                  padding: "16px",
+                  color: item.color,
+                  textDecoration: "none",
+                  transition: "transform 0.2s",
+                }}
+              >
+                <div style={{ fontWeight: 600, fontSize: "14px" }}>{item.label}</div>
+              </a>
+            ))}
           </div>
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-emerald-400" />
-            <span className="text-sm text-gray-400">Research complete: 37 ideas</span>
-            <span className="text-xs text-gray-600 ml-auto">Today</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-purple-400" />
-            <span className="text-sm text-gray-400">Tavily API installed</span>
-            <span className="text-xs text-gray-600 ml-auto">Today</span>
+
+          {/* Recent Activity */}
+          <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "24px" }}>
+            <h2 style={{ fontWeight: 600, marginBottom: "16px" }}>Recent Activity</h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#22d3ee" }} />
+                <span style={{ fontSize: "14px", color: "#9ca3af" }}>Mission Control deployed</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981" }} />
+                <span style={{ fontSize: "14px", color: "#9ca3af" }}>Research complete: 37 ideas</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#a855f7" }} />
+                <span style={{ fontSize: "14px", color: "#9ca3af" }}>Tavily API installed</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Getting Started */}
-      <div className="mt-6 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-500/20 rounded-xl p-6">
-        <h3 className="font-semibold mb-2">🚀 Getting Started</h3>
-        <p className="text-sm text-gray-400 mb-4">Here are some things you can do:</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-          <a href="/tasks" className="text-cyan-400 hover:underline">→ Create your first task</a>
-          <a href="/content" className="text-cyan-400 hover:underline">→ Add content to pipeline</a>
-          <a href="/upgrades" className="text-cyan-400 hover:underline">→ Check out upgrades</a>
-          <a href="/team" className="text-cyan-400 hover:underline">→ Create an agent</a>
-        </div>
-      </div>
+      </main>
     </div>
   );
 }
