@@ -14,9 +14,9 @@ export default function CalendarPage() {
   const nextMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
 
   return (
-    <div style={{ marginLeft: "180px", minHeight: "100vh", background: "#151520", color: "white" }}>
+    <div className="page-container">
       {/* Header */}
-      <header style={{ height: "56px", background: "#1e1e30", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+      <header style={{ height: "56px", background: "#1e1e30", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0, zIndex: 10 }}>
         <span style={{ fontWeight: 600 }}>Mission Control</span>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>

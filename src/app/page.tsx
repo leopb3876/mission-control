@@ -16,11 +16,11 @@ const navItems = [
 
 export default function Home() {
   return (
-    <div style={{ minHeight: "100vh", background: "#151520", color: "white", display: "flex" }}>
+    <div className="page-container">
       {/* Main */}
-      <main style={{ flex: 1, display: "flex", flexDirection: "column", marginLeft: "180px" }}>
+      <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
         {/* Header */}
-        <header style={{ height: "56px", background: "#1e1e30", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+        <header style={{ height: "56px", background: "#1e1e30", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0, zIndex: 10 }}>
           <span style={{ fontWeight: 600 }}>Mission Control</span>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
@@ -39,7 +39,7 @@ export default function Home() {
           <p style={{ color: "#9ca3af", marginBottom: "24px" }}>Here&apos;s what&apos;s happening with your projects</p>
 
           {/* Quick Links */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "12px", marginBottom: "24px" }}>
+          <div className="card-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "12px", marginBottom: "24px" }}>
             {[
               { label: "Tasks", color: "#22d3ee", href: "/tasks" },
               { label: "Content", color: "#a855f7", href: "/content" },

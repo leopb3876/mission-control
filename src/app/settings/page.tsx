@@ -20,8 +20,8 @@ export default function SettingsPage() {
   }, [notificationsEnabled]);
 
   return (
-    <div style={{ marginLeft: "180px", minHeight: "100vh", background: "var(--background)", color: "var(--text-primary)" }}>
-      <header style={{ height: "56px", background: "var(--card)", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+    <div className="page-container">
+      <header style={{ height: "56px", background: "var(--card)", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0, zIndex: 10 }}>
         <span style={{ fontWeight: 600 }}>Mission Control</span>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "var(--text-secondary)" }}>
@@ -68,6 +68,20 @@ export default function SettingsPage() {
               {notificationsEnabled ? <Bell size={18} /> : <BellOff size={18} />}
               {notificationsEnabled ? "On" : "Off"}
             </button>
+          </div>
+        </div>
+
+        <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: "12px", padding: "20px", maxWidth: "500px", marginTop: "16px" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div>
+              <h3 style={{ fontWeight: 600, marginBottom: "4px" }}>Version</h3>
+              <p style={{ fontSize: "13px", color: "var(--text-secondary)" }}>
+                Current application version
+              </p>
+            </div>
+            <span style={{ fontSize: "14px", color: "var(--text-secondary)", fontWeight: 500 }}>
+              v1.0.0
+            </span>
           </div>
         </div>
       </div>

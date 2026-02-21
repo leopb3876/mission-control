@@ -76,8 +76,8 @@ export default function TasksPage() {
   const progressPercent = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
   return (
-    <div style={{ marginLeft: "180px", minHeight: "100vh", background: "#151520", color: "white" }}>
-      <header style={{ height: "56px", background: "#1e1e30", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+    <div className="page-container">
+      <header style={{ height: "56px", background: "#1e1e30", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0, zIndex: 10 }}>
         <span style={{ fontWeight: 600 }}>Mission Control</span>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
@@ -154,11 +154,11 @@ export default function TasksPage() {
         </div>
 
         {/* Kanban Board */}
-        <div style={{ display: "flex", gap: "20px", overflowX: "auto", paddingBottom: "16px" }}>
+        <div className="kanban-board" style={{ display: "flex", gap: "20px", overflowX: "auto", paddingBottom: "16px" }}>
           {columns.map((column) => {
             const columnTasks = filteredTasks.filter(t => t.status === column.id);
             return (
-              <div key={column.id} style={{ minWidth: "320px", flexShrink: 0 }}>
+              <div key={column.id} className="kanban-column" style={{ minWidth: "320px", flexShrink: 0 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
                   <div style={{ width: "12px", height: "12px", borderRadius: "50%", background: column.color }} />
                   <span style={{ fontWeight: 600, fontSize: "16px" }}>{column.label}</span>

@@ -110,97 +110,13 @@ body {
 
 /* Stage colors */
 .stage-idea { border-left: 3px solid #9ca3af; }
-.stage-script { border-left: 3px solid #00d4ff; }
+.stage-script { border-left: 3px solid #00d3ee; }
 .stage-thumbnail { border-left: 3px solid #a855f7; }
 .stage-filming { border-left: 3px solid #f59e0b; }
 .stage-editing { border-left: 3px solid #ec4899; }
 .stage-review { border-left: 3px solid #f59e0b; }
 .stage-scheduled { border-left: 3px solid #7c3aed; }
 .stage-published { border-left: 3px solid #10b981; }
-
-/* Mobile Responsive Styles */
-@media (max-width: 768px) {
-  /* Hide sidebar by default on mobile */
-  .sidebar {
-    position: fixed !important;
-    left: -100% !important;
-    top: 0 !important;
-    height: 100vh !important;
-    width: 240px !important;
-    z-index: 1000 !important;
-    transition: left 0.3s ease !important;
-  }
-
-  .sidebar.open {
-    left: 0 !important;
-  }
-
-  /* Main content takes full width on mobile */
-  .main-content {
-    margin-left: 0 !important;
-    padding: 16px !important;
-    padding-top: 60px !important;
-  }
-
-  /* Hamburger menu button */
-  .hamburger {
-    display: flex !important;
-    position: fixed !important;
-    top: 12px !important;
-    left: 12px !important;
-    z-index: 999 !important;
-    background: var(--card) !important;
-    border: 1px solid var(--border) !important;
-    border-radius: 8px !important;
-    padding: 10px !important;
-    cursor: pointer !important;
-    color: var(--text-primary) !important;
-  }
-
-  /* Overlay when sidebar is open */
-  .sidebar-overlay {
-    display: block !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    background: rgba(0, 0, 0, 0.5) !important;
-    z-index: 999 !important;
-  }
-
-  /* Adjust logo position on mobile */
-  .logo-container {
-    margin-left: 48px !important;
-  }
-
-  /* Stack cards in grid on mobile */
-  .card-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Make tables scrollable */
-  .table-container {
-    overflow-x: auto !important;
-  }
-
-  /* Adjust padding for page content */
-  .page-content {
-    padding: 12px !important;
-  }
-
-  /* Mobile nav - bottom bar option */
-  .mobile-nav {
-    display: flex !important;
-  }
-}
-
-/* Default hamburger hidden on desktop */
-.hamburger,
-.sidebar-overlay,
-.mobile-nav {
-  display: none !important;
-}
 
 /* Card grid - responsive */
 .card-grid {
@@ -215,141 +131,171 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  body {
-    padding-bottom: 70px;
-  }
-  
-  .sidebar-mobile-hidden {
-    display: none !important;
-  }
-  
-  .mobile-bottom-nav {
-    display: flex !important;
-  }
-  
-  /* Make grids single column on mobile */
-  [style*="grid-template-columns"] {
-    grid-template-columns: 1fr !important;
-  }
-  
-  /* Adjust padding for mobile */
-  div[style*="marginLeft"] {
-    marginLeft: 0 !important;
-  }
-  
-  /* Full width cards on mobile */
-  div[style*="min-width: 300px"] {
-    min-width: 100% !important;
-  }
-  
-  div[style*="min-width: 320px"] {
-    min-width: 100% !important;
-  }
+/* Page container base */
+.page-container {
+  margin-left: 180px;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--text-primary);
+  padding: 24px;
 }
 
-/* Hide bottom nav by default */
-.mobile-bottom-nav {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: var(--card);
-  border-top: 1px solid var(--border);
-  justify-content: space-around;
-  align-items: center;
-  z-index: 100;
-}
+/* Mobile Responsive Styles */
+@media (max-width: 767px) {
+  .page-container {
+    margin-left: 0 !important;
+    padding: 16px !important;
+    padding-top: 60px !important;
+    padding-bottom: 80px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 
-.mobile-bottom-nav a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  font-size: 10px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  padding: 8px;
-}
-
-.mobile-bottom-nav a.active {
-  color: var(--primary);
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  /* Hide desktop sidebar on mobile - it will be shown as slide-in overlay */
   .sidebar-desktop {
     display: none !important;
   }
-  
-  /* Show hamburger on mobile */
-  .hamburger {
-    display: flex !important;
-  }
-  
-  /* Show mobile nav as bottom bar */
-  .mobile-nav {
-    display: flex !important;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    background: var(--card);
-    border-top: 1px solid var(--border);
-    justify-content: space-around;
-    align-items: center;
-    z-index: 100;
-  }
-  
-  .mobile-nav a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    font-size: 10px;
-    color: var(--text-secondary);
-    text-decoration: none;
-    padding: 6px 8px;
-  }
-  
-  /* Adjust main content for mobile */
+
   .main-content {
     margin-left: 0 !important;
     padding: 16px !important;
     padding-top: 60px !important;
+    padding-bottom: 80px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Hamburger button */
+  .hamburger-btn {
+    display: flex !important;
+  }
+
+  /* Mobile nav */
+  .mobile-nav {
+    display: flex !important;
+  }
+
+  /* Card grid becomes single column */
+  .card-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Full width cards */
+  .card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* Kanban board */
+  .kanban-board {
+    flex-direction: column !important;
+    gap: 16px !important;
+    overflow-x: visible !important;
+  }
+
+  .kanban-column {
+    min-width: 100% !important;
+    width: 100% !important;
+    flex: none !important;
+  }
+
+  /* Adjust headers */
+  header {
+    padding: 0 16px !important;
+  }
+
+  h1 {
+    font-size: 22px !important;
+  }
+
+  h2 {
+    font-size: 18px !important;
+  }
+
+  /* Form elements */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  /* Flex containers */
+  .flex-row {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .flex-row > * {
+    width: 100% !important;
+  }
+
+  /* Tables */
+  .table-container {
+    margin: 0 -16px !important;
+    padding: 0 16px !important;
+    width: calc(100% + 32px) !important;
+    overflow-x: auto !important;
+  }
+
+  /* Hide some elements on mobile */
+  .hide-mobile {
+    display: none !important;
+  }
+
+  /* Progress bar */
+  .progress-bar-container {
     padding-bottom: 70px !important;
   }
-  
-  /* Single column grids */
-  [style*="grid-template-columns"] {
-    grid-template-columns: 1fr !important;
+
+  /* Adjust margins */
+  .mb-6 {
+    margin-bottom: 16px !important;
+  }
+
+  .mb-4 {
+    margin-bottom: 12px !important;
+  }
+
+  .gap-4 {
+    gap: 12px !important;
+  }
+
+  .gap-6 {
+    gap: 12px !important;
+  }
+}
+
+/* Ensure proper sizing on very small screens */
+@media (max-width: 375px) {
+  .page-container,
+  .main-content {
+    padding: 12px !important;
+    padding-top: 56px !important;
+    padding-bottom: 80px !important;
+  }
+
+  h1 {
+    font-size: 20px !important;
+  }
+
+  .card {
+    padding: 12px !important;
+  }
+
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .sidebar-desktop,
+  .mobile-nav,
+  .hamburger-btn {
+    display: none !important;
   }
   
-  /* Full width cards */
-  div[style*="min-width: 300px"],
-  div[style*="min-width: 320px"],
-  div[style*="min-width: 260px"],
-  div[style*="min-width: 240px"] {
-    min-width: 100% !important;
-  }
-  
-  /* Adjust padding */
-  div[style*="padding: 24px"] {
-    padding: 16px !important;
-  }
-  
-  /* Stack flex containers */
-  div[style*="display: flex"][style*="gap: 16px"] {
-    flex-direction: column !important;
-  }
-  
-  /* Table scroll */
-  .table-container {
-    overflow-x: auto !important;
+  .page-container {
+    margin-left: 0 !important;
   }
 }
