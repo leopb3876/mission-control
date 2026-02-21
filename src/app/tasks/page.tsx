@@ -10,6 +10,7 @@ type Task = {
   status: "todo" | "in_progress" | "review" | "done";
   priority: "low" | "medium" | "high" | "urgent";
   tags: string[];
+  progress: number;
 };
 
 const initialTasks: Task[] = [
@@ -20,6 +21,7 @@ const initialTasks: Task[] = [
     status: "in_progress",
     priority: "high",
     tags: ["research", "dropshipping"],
+    progress: 60,
   },
   {
     id: "2",
@@ -28,6 +30,7 @@ const initialTasks: Task[] = [
     status: "todo",
     priority: "medium",
     tags: ["website"],
+    progress: 0,
   },
   {
     id: "3",
@@ -36,6 +39,16 @@ const initialTasks: Task[] = [
     status: "done",
     priority: "low",
     tags: ["discord"],
+    progress: 100,
+  },
+  {
+    id: "4",
+    title: "Contact supplement suppliers",
+    description: "Reach out to Alibaba manufacturers",
+    status: "todo",
+    priority: "high",
+    tags: ["supplements", "suppliers"],
+    progress: 0,
   },
 ];
 
@@ -59,7 +72,11 @@ export default function TasksPage() {
   const handleDrop = (status: string) => {
     if (draggedTask) {
       setTasks(tasks.map((t) =>
-        t.id === draggedTask ? { ...t, status: status as Task["status"] } : t
+        t.id === draggedTask ? { 
+          ...t, 
+          status: status as Task["status"],
+          progress: status === "done" ? 100 : t.progress
+        } : t
       ));
       setDraggedTask(null);
     }
@@ -72,14 +89,7 @@ export default function TasksPage() {
     urgent: "#ef4444",
   };
 
-  const statusColors: Record<string, string> = {
-    todo: "#6b7280",
-    in_progress: "#22d3ee",
-    review: "#f59e0b",
-    done: "#10b981",
-  };
-
-  // Calculate progress
+  // Calculate overall progress
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter(t => t.status === "done").length;
   const progressPercent = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
@@ -106,17 +116,17 @@ export default function TasksPage() {
           <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "8px" }}>Tasks</h1>
           <p style={{ color: "#9ca3af", marginBottom: "16px" }}>Track and manage your tasks</p>
           
-          {/* Progress Bar */}
+          {/* Overall Progress Bar */}
           <div style={{ background: "#1f1f2e", borderRadius: "8px", padding: "16px", marginBottom: "24px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
-              <span style={{ fontSize: "14px", fontWeight: 600 }}>Progress</span>
+              <span style={{ fontSize: "14px", fontWeight: 600 }}>Overall Progress</span>
               <span style={{ fontSize: "14px", color: "#22d3ee" }}>{progressPercent}%</span>
             </div>
             <div style={{ height: "8px", background: "#0a0a0f", borderRadius: "4px", overflow: "hidden" }}>
               <div style={{ 
                 height: "100%", 
                 width: `${progressPercent}%`, 
-                background: "linear-gradient(to right, #22d3ee, #10b981)",
+                background: "linear-gradient(90deg, #22d3ee, #10b981)",
                 borderRadius: "4px",
                 transition: "width 0.3s ease"
               }} />
@@ -154,7 +164,7 @@ export default function TasksPage() {
           {columns.map((column) => (
             <div
               key={column.id}
-              style={{ minWidth: "280px", flexShrink: 0 }}
+              style={{ minWidth: "260px", flexShrink: 0 }}
               onDragOver={(e) => e.preventDefault()}
               onDrop={() => handleDrop(column.id)}
             >
@@ -186,6 +196,24 @@ export default function TasksPage() {
                       <span style={{ fontWeight: 500, fontSize: "14px" }}>{task.title}</span>
                     </div>
                     <p style={{ fontSize: "12px", color: "#9ca3af", marginBottom: "8px" }}>{task.description}</p>
+                    
+                    {/* Individual Task Progress Bar */}
+                    <div style={{ marginBottom: "8px" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
+                        <span style={{ fontSize: "10px", color: "#6b7280" }}>Progress</span>
+                        <span style={{ fontSize: "10px", color: task.progress === 100 ? "#10b981" : "#22d3ee" }}>{task.progress}%</span>
+                      </div>
+                      <div style={{ height: "4px", background: "#0a0a0f", borderRadius: "2px", overflow: "hidden" }}>
+                        <div style={{ 
+                          height: "100%", 
+                          width: `${task.progress}%`, 
+                          background: task.progress === 100 ? "#10b981" : "#22d3ee",
+                          borderRadius: "2px",
+                          transition: "width 0.3s ease"
+                        }} />
+                      </div>
+                    </div>
+
                     <div style={{ display: "flex", gap: "6px" }}>
                       <span style={{ 
                         fontSize: "10px", 
@@ -197,6 +225,17 @@ export default function TasksPage() {
                       }}>
                         {task.priority}
                       </span>
+                      {task.tags.map((tag) => (
+                        <span key={tag} style={{ 
+                          fontSize: "10px", 
+                          background: "#1f1f2e", 
+                          color: "#6b7280",
+                          padding: "2px 6px", 
+                          borderRadius: "4px"
+                        }}>
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 ))}
