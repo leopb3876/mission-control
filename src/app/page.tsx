@@ -17,39 +17,8 @@ const navItems = [
 export default function Home() {
   return (
     <div style={{ minHeight: "100vh", background: "#0a0a0f", color: "white", display: "flex" }}>
-      {/* Sidebar */}
-      <aside style={{ width: "64px", background: "#121218", borderRight: "1px solid #1f1f2e", padding: "12px", display: "flex", flexDirection: "column", position: "fixed", height: "100vh" }}>
-        <div style={{ width: "40px", height: "40px", background: "linear-gradient(to bottom right, #22d3ee, #0891b2)", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "24px" }}>
-          <span style={{ fontSize: "20px" }}>⚡</span>
-        </div>
-        <nav style={{ flex: 1, display: "flex", flexDirection: "column", gap: "4px" }}>
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <Link
-                key={item.label}
-                href={item.href}
-                title={item.label}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: "12px",
-                  borderRadius: "10px",
-                  color: "#6b7280",
-                  textDecoration: "none",
-                  transition: "all 0.2s",
-                }}
-              >
-                <Icon size={20} />
-              </Link>
-            );
-          })}
-        </nav>
-      </aside>
-
       {/* Main */}
-      <main style={{ flex: 1, display: "flex", flexDirection: "column", marginLeft: "64px" }}>
+      <main style={{ flex: 1, display: "flex", flexDirection: "column", marginRight: "64px" }}>
         {/* Header */}
         <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
           <span style={{ fontWeight: 600 }}>Mission Control</span>
