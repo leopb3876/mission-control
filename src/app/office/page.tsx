@@ -113,9 +113,9 @@ export default function OfficePage() {
   }, []);
 
   return (
-    <div style={{ marginLeft: "80px", height: "100vh", background: "#0a0a0f", color: "white", padding: "24px", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+    <div style={{ marginLeft: "180px", height: "100vh", background: "#151520", color: "white", padding: "24px", display: "flex", flexDirection: "column", overflow: "hidden" }}>
       {/* Header */}
-      <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", borderRadius: "12px", flexShrink: 0 }}>
+      <header style={{ height: "56px", background: "#1e1e30", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", borderRadius: "12px", flexShrink: 0 }}>
         <span style={{ fontWeight: 600 }}>Mission Control</span>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
@@ -403,7 +403,7 @@ export default function OfficePage() {
         </div>
 
         {/* Live Activity Sidebar - stretches to bottom */}
-        <div style={{ width: "260px", background: "#121218", border: "1px solid #1f1f2e", padding: "16px", display: "flex", flexDirection: "column" }}>
+        <div style={{ width: "260px", background: "#1e1e30", border: "1px solid #2a2a4e", padding: "16px", display: "flex", flexDirection: "column" }}>
           <h2 style={{ fontSize: "16px", fontWeight: 600, marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
             <div style={{ width: "8px", height: "8px", background: "#10b981" }} />
             Live Activity
@@ -415,7 +415,7 @@ export default function OfficePage() {
                 key={activity.id}
                 style={{
                   padding: "12px",
-                  background: "#0a0a0f",
+                  background: "#151520",
                   borderLeft: `3px solid ${activity.agent === "Mori" ? "#22d3ee" : activity.agent === "Leo" ? "#a855f7" : "#10b981"}`,
                 }}
               >
@@ -431,7 +431,7 @@ export default function OfficePage() {
           </div>
 
           {/* System Status */}
-          <div style={{ marginTop: "20px", padding: "12px", background: "#0a0a0f", border: "1px solid #10b98130" }}>
+          <div style={{ marginTop: "20px", padding: "12px", background: "#151520", border: "1px solid #10b98130" }}>
             <span style={{ fontSize: "12px", fontWeight: 600, color: "#10b981" }}>● System</span>
             <p style={{ fontSize: "10px", color: "#9ca3af", marginTop: "4px" }}>All services operational</p>
           </div>

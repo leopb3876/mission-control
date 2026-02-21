@@ -14,9 +14,9 @@ export default function CalendarPage() {
   const nextMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
 
   return (
-    <div style={{ marginLeft: "80px", minHeight: "100vh", background: "#0a0a0f", color: "white" }}>
+    <div style={{ marginLeft: "180px", minHeight: "100vh", background: "#151520", color: "white" }}>
       {/* Header */}
-      <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+      <header style={{ height: "56px", background: "#1e1e30", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
         <span style={{ fontWeight: 600 }}>Mission Control</span>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
@@ -37,7 +37,7 @@ export default function CalendarPage() {
         <p style={{ color: "#9ca3af", marginBottom: "24px" }}>Scheduled tasks and events</p>
 
         {/* Calendar */}
-        <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", overflow: "hidden" }}>
+        <div style={{ background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", overflow: "hidden" }}>
           {/* Month Nav */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px", borderBottom: "1px solid #1f1f2e" }}>
             <button onClick={prevMonth} style={{ background: "none", border: "none", color: "#9ca3af", cursor: "pointer", padding: "8px" }}>
@@ -61,7 +61,7 @@ export default function CalendarPage() {
           {/* Calendar Grid */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)" }}>
             {Array.from({ length: firstDayOfMonth }).map((_, i) => (
-              <div key={`empty-${i}`} style={{ padding: "12px", minHeight: "80px", background: "#0a0a0f" }} />
+              <div key={`empty-${i}`} style={{ padding: "12px", minHeight: "80px", background: "#151520" }} />
             ))}
             {Array.from({ length: daysInMonth }).map((_, i) => {
               const day = i + 1;

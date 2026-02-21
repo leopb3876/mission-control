@@ -16,11 +16,11 @@ const navItems = [
 
 export default function Home() {
   return (
-    <div style={{ minHeight: "100vh", background: "#0a0a0f", color: "white", display: "flex" }}>
+    <div style={{ minHeight: "100vh", background: "#151520", color: "white", display: "flex" }}>
       {/* Main */}
-      <main style={{ flex: 1, display: "flex", flexDirection: "column", marginLeft: "80px" }}>
+      <main style={{ flex: 1, display: "flex", flexDirection: "column", marginLeft: "180px" }}>
         {/* Header */}
-        <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+        <header style={{ height: "56px", background: "#1e1e30", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
           <span style={{ fontWeight: 600 }}>Mission Control</span>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
@@ -51,7 +51,7 @@ export default function Home() {
                 key={item.label}
                 href={item.href}
                 style={{
-                  background: "#121218",
+                  background: "#1e1e30",
                   border: `1px solid ${item.color}30`,
                   borderRadius: "12px",
                   padding: "16px",
@@ -66,7 +66,7 @@ export default function Home() {
           </div>
 
           {/* Recent Activity */}
-          <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "24px" }}>
+          <div style={{ background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", padding: "24px" }}>
             <h2 style={{ fontWeight: 600, marginBottom: "16px" }}>Recent Activity</h2>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>

@@ -20,9 +20,9 @@ const memories = [
 
 export default function MemoryPage() {
   return (
-    <div style={{ marginLeft: "80px", minHeight: "100vh", background: "#0a0a0f", color: "white" }}>
+    <div style={{ marginLeft: "180px", minHeight: "100vh", background: "#151520", color: "white" }}>
       {/* Header */}
-      <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+      <header style={{ height: "56px", background: "#1e1e30", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
         <span style={{ fontWeight: 600 }}>Mission Control</span>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
@@ -50,8 +50,8 @@ export default function MemoryPage() {
             placeholder="Search memories..."
             style={{ 
               width: "100%", 
-              background: "#121218", 
-              border: "1px solid #1f1f2e", 
+              background: "#1e1e30", 
+              border: "1px solid #2a2a4e", 
               borderRadius: "10px", 
               padding: "10px 12px 10px 40px", 
               fontSize: "14px", 
@@ -64,7 +64,7 @@ export default function MemoryPage() {
         {/* Memories */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "16px" }}>
           {memories.map((memory) => (
-            <div key={memory.id} style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px" }}>
+            <div key={memory.id} style={{ background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", padding: "20px" }}>
               <h3 style={{ fontWeight: 600, marginBottom: "8px" }}>{memory.title}</h3>
               <p style={{ fontSize: "13px", color: "#9ca3af", marginBottom: "12px" }}>{memory.content}</p>
               <div style={{ display: "flex", alignItems: "center", gap: "12px", fontSize: "11px", color: "#6b7280" }}>

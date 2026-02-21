@@ -41,8 +41,8 @@ export default function ContentPage() {
   };
 
   return (
-    <div style={{ marginLeft: "80px", minHeight: "100vh", background: "#0a0a0f", color: "white" }}>
-      <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+    <div style={{ marginLeft: "180px", minHeight: "100vh", background: "#151520", color: "white" }}>
+      <header style={{ height: "56px", background: "#1e1e30", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
         <span style={{ fontWeight: 600 }}>Mission Control</span>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
@@ -68,11 +68,11 @@ export default function ContentPage() {
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
                   <div style={{ width: "12px", height: "12px", borderRadius: "50%", background: stage.color }} />
                   <span style={{ fontWeight: 600, fontSize: "15px" }}>{stage.label}</span>
-                  <span style={{ fontSize: "12px", background: "#121218", padding: "2px 10px", borderRadius: "6px", color: "#9ca3af" }}>{stageContent.length}</span>
+                  <span style={{ fontSize: "12px", background: "#1e1e30", padding: "2px 10px", borderRadius: "6px", color: "#9ca3af" }}>{stageContent.length}</span>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                   {stageContent.map((item) => (
-                    <div key={item.id} style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "16px" }}>
+                    <div key={item.id} style={{ background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", padding: "16px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
                         {item.platform === "youtube" && <Youtube size={16} style={{ color: "#ef4444" }} />}
                         {item.platform === "instagram" && <Instagram size={16} style={{ color: "#ec4899" }} />}
@@ -88,7 +88,7 @@ export default function ContentPage() {
                     </div>
                   ))}
                   {stageContent.length === 0 && (
-                    <div style={{ background: "#0a0a0f", border: "2px dashed #1f1f2e", borderRadius: "12px", padding: "24px", textAlign: "center", color: "#4a4a6a", fontSize: "12px" }}>
+                    <div style={{ background: "#151520", border: "2px dashed #1f1f2e", borderRadius: "12px", padding: "24px", textAlign: "center", color: "#4a4a6a", fontSize: "12px" }}>
                       No content
                     </div>
                   )}

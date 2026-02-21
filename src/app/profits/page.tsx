@@ -87,8 +87,8 @@ export default function ProfitsPage() {
   const maxValue = 100; // Start small since everything is 0
 
   return (
-    <div style={{ marginLeft: "80px", minHeight: "100vh", background: "#0a0a0f", color: "white" }}>
-      <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+    <div style={{ marginLeft: "180px", minHeight: "100vh", background: "#151520", color: "white" }}>
+      <header style={{ height: "56px", background: "#1e1e30", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
         <span style={{ fontWeight: 600 }}>Mission Control</span>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
@@ -120,7 +120,7 @@ export default function ProfitsPage() {
 
         {/* Add Transaction Form */}
         {showAddForm && (
-          <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px", marginBottom: "24px" }}>
+          <div style={{ background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", padding: "20px", marginBottom: "24px" }}>
             <h3 style={{ fontWeight: 600, marginBottom: "16px" }}>Add New Transaction</h3>
             <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
               <div style={{ display: "flex", gap: "8px" }}>
@@ -142,21 +142,21 @@ export default function ProfitsPage() {
                 placeholder="Amount (€)"
                 value={newAmount}
                 onChange={(e) => setNewAmount(e.target.value)}
-                style={{ flex: 1, minWidth: "120px", background: "#0a0a0f", border: "1px solid #1f1f2e", borderRadius: "8px", padding: "12px", color: "white", fontSize: "14px", outline: "none" }}
+                style={{ flex: 1, minWidth: "120px", background: "#151520", border: "1px solid #2a2a4e", borderRadius: "8px", padding: "12px", color: "white", fontSize: "14px", outline: "none" }}
               />
               <input
                 type="text"
                 placeholder="Description"
                 value={newDescription}
                 onChange={(e) => setNewDescription(e.target.value)}
-                style={{ flex: 2, minWidth: "150px", background: "#0a0a0f", border: "1px solid #1f1f2e", borderRadius: "8px", padding: "12px", color: "white", fontSize: "14px", outline: "none" }}
+                style={{ flex: 2, minWidth: "150px", background: "#151520", border: "1px solid #2a2a4e", borderRadius: "8px", padding: "12px", color: "white", fontSize: "14px", outline: "none" }}
               />
               <input
                 type="text"
                 placeholder="Category (optional)"
                 value={newCategory}
                 onChange={(e) => setNewCategory(e.target.value)}
-                style={{ flex: 1, minWidth: "100px", background: "#0a0a0f", border: "1px solid #1f1f2e", borderRadius: "8px", padding: "12px", color: "white", fontSize: "14px", outline: "none" }}
+                style={{ flex: 1, minWidth: "100px", background: "#151520", border: "1px solid #2a2a4e", borderRadius: "8px", padding: "12px", color: "white", fontSize: "14px", outline: "none" }}
               />
               <button 
                 onClick={addTransaction}
@@ -170,7 +170,7 @@ export default function ProfitsPage() {
 
         {/* Stats Cards */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px", marginBottom: "32px" }}>
-          <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px" }}>
+          <div style={{ background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", padding: "20px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px", color: "#9ca3af", fontSize: "14px" }}>
               <TrendingUp size={16} style={{ color: "#10b981" }} />
               Total Income
@@ -179,7 +179,7 @@ export default function ProfitsPage() {
             <div style={{ fontSize: "12px", color: "#6b7280", marginTop: "4px" }}>{transactions.filter(t => t.type === "income").length} transactions</div>
           </div>
           
-          <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px" }}>
+          <div style={{ background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", padding: "20px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px", color: "#9ca3af", fontSize: "14px" }}>
               <TrendingDown size={16} style={{ color: "#ef4444" }} />
               Total Expenses
@@ -188,7 +188,7 @@ export default function ProfitsPage() {
             <div style={{ fontSize: "12px", color: "#6b7280", marginTop: "4px" }}>{transactions.filter(t => t.type === "expense").length} transactions</div>
           </div>
           
-          <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px" }}>
+          <div style={{ background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", padding: "20px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px", color: "#9ca3af", fontSize: "14px" }}>
               <DollarSign size={16} style={{ color: profit >= 0 ? "#22d3ee" : "#ef4444" }} />
               Net Profit
@@ -203,7 +203,7 @@ export default function ProfitsPage() {
         </div>
 
         {/* Chart - Shows empty bars since all 0 */}
-        <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "24px", marginBottom: "32px" }}>
+        <div style={{ background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", padding: "24px", marginBottom: "32px" }}>
           <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "16px" }}>Profit & Loss</h2>
           <p style={{ fontSize: "13px", color: "#6b7280", textAlign: "center", padding: "40px" }}>
             Add transactions above to see your profit chart
@@ -211,7 +211,7 @@ export default function ProfitsPage() {
         </div>
 
         {/* Transactions List */}
-        <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "24px" }}>
+        <div style={{ background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", padding: "24px" }}>
           <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "16px" }}>All Transactions</h2>
           
           {transactions.length === 0 ? (
@@ -221,7 +221,7 @@ export default function ProfitsPage() {
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
               {transactions.map((t) => (
-                <div key={t.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px", background: "#0a0a0f", borderRadius: "8px" }}>
+                <div key={t.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px", background: "#151520", borderRadius: "8px" }}>
                   <div>
                     <div style={{ fontWeight: 500, fontSize: "14px" }}>{t.description}</div>
                     <div style={{ fontSize: "11px", color: "#6b7280" }}>{t.category} • {t.date}</div>

@@ -28,9 +28,9 @@ const availableSkills = [
 
 export default function Upgrades() {
   return (
-    <div style={{ minHeight: "100vh", background: "#0a0a0f", color: "white", marginLeft: "80px" }}>
+    <div style={{ minHeight: "100vh", background: "#151520", color: "white", marginLeft: "180px" }}>
       {/* Header */}
-      <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+      <header style={{ height: "56px", background: "#1e1e30", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
         <span style={{ fontWeight: 600 }}>Mission Control</span>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
@@ -58,7 +58,7 @@ export default function Upgrades() {
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "12px" }}>
             {installedSkills.map((skill) => (
-              <div key={skill.name} style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "16px" }}>
+              <div key={skill.name} style={{ background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", padding: "16px" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
                   <span style={{ fontWeight: 600, color: "#22d3ee" }}>{skill.name}</span>
                   <Check size={16} style={{ color: "#10b981" }} />
@@ -77,7 +77,7 @@ export default function Upgrades() {
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "12px" }}>
             {availableSkills.map((skill) => (
-              <div key={skill.name} style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "16px" }}>
+              <div key={skill.name} style={{ background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", padding: "16px" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
                   <span style={{ fontWeight: 600 }}>{skill.name}</span>
                   <span style={{ fontSize: "10px", background: "#1f1f2e", padding: "2px 8px", borderRadius: "4px", color: "#9ca3af" }}>{skill.category}</span>
@@ -93,7 +93,7 @@ export default function Upgrades() {
         </div>
 
         {/* Clawhub */}
-        <div style={{ marginTop: "40px", background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "24px" }}>
+        <div style={{ marginTop: "40px", background: "#1e1e30", border: "1px solid #2a2a4e", borderRadius: "12px", padding: "24px" }}>
           <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "8px" }}>🔗 Clawhub</h2>
           <p style={{ color: "#9ca3af", fontSize: "14px", marginBottom: "16px" }}>
             Discover more skills at <a href="https://clawhub.com" target="_blank" style={{ color: "#22d3ee" }}>clawhub.com</a> — the marketplace for OpenClaw skills
