@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { DollarSign, TrendingUp, TrendingDown, Plus, Calendar } from "lucide-react";
+import { DollarSign, TrendingUp, TrendingDown, Plus, Trash2, Calendar } from "lucide-react";
 
 type Transaction = {
   id: string;
@@ -19,11 +19,10 @@ type ChartData = {
   profit: number;
 };
 
-// Sample historical data
-const generateChartData = (timeframe: string): ChartData[] => {
+const generateEmptyChartData = (timeframe: string): ChartData[] => {
   const data: ChartData[] = [];
   const now = new Date();
-  let days = timeframe === "week" ? 7 : timeframe === "month" ? 30 : timeframe === "year" ? 12 : 7;
+  const days = timeframe === "week" ? 7 : timeframe === "month" ? 30 : 12;
   
   for (let i = days - 1; i >= 0; i--) {
     const date = new Date(now);
@@ -32,17 +31,13 @@ const generateChartData = (timeframe: string): ChartData[] => {
     } else {
       date.setDate(date.getDate() - i);
     }
-    
-    const baseIncome = Math.floor(Math.random() * 500) + 100;
-    const baseExpense = Math.floor(Math.random() * 300) + 50;
-    
     data.push({
       date: timeframe === "year" 
         ? date.toLocaleDateString("en-US", { month: "short" })
         : date.toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-      income: baseIncome,
-      expenses: baseExpense,
-      profit: baseIncome - baseExpense,
+      income: 0,
+      expenses: 0,
+      profit: 0,
     });
   }
   return data;
@@ -50,51 +45,46 @@ const generateChartData = (timeframe: string): ChartData[] => {
 
 export default function ProfitsPage() {
   const [timeframe, setTimeframe] = useState("week");
-  const [transactions, setTransactions] = useState<Transaction[]>([
-    { id: "1", type: "income", amount: 250, description: "Product sale", category: "Sales", date: "2026-02-20" },
-    { id: "2", type: "expense", amount: 50, description: "Ads", category: "Marketing", date: "2026-02-19" },
-    { id: "3", type: "income", amount: 150, description: "Affiliate commission", category: "Affiliate", date: "2026-02-18" },
-    { id: "4", type: "expense", amount: 25, description: "Tools subscription", category: "Software", date: "2026-02-17" },
-    { id: "5", type: "income", amount: 500, description: "Product sale", category: "Sales", date: "2026-02-15" },
-  ]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [chartData, setChartData] = useState<ChartData[]>(generateEmptyChartData("week"));
   
-  const [chartData, setChartData] = useState<ChartData[]>(generateChartData("week"));
+  // Form states
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newType, setNewType] = useState<"income" | "expense">("income");
+  const [newAmount, setNewAmount] = useState("");
+  const [newDescription, setNewDescription] = useState("");
+  const [newCategory, setNewCategory] = useState("");
 
   useEffect(() => {
-    setChartData(generateChartData(timeframe));
+    setChartData(generateEmptyChartData(timeframe));
   }, [timeframe]);
 
-  useEffect(() => {
-    // Simulate real-time updates
-    const interval = setInterval(() => {
-      setTransactions(prev => {
-        if (Math.random() > 0.7) {
-          const newTx: Transaction = {
-            id: Date.now().toString(),
-            type: Math.random() > 0.5 ? "income" : "expense",
-            amount: Math.floor(Math.random() * 200) + 20,
-            description: Math.random() > 0.5 ? "New sale" : "New expense",
-            category: Math.random() > 0.5 ? "Sales" : "Operations",
-            date: new Date().toISOString().split("T")[0],
-          };
-          return [newTx, ...prev];
-        }
-        return prev;
-      });
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  const addTransaction = () => {
+    if (!newAmount || !newDescription) return;
+    const newTx: Transaction = {
+      id: Date.now().toString(),
+      type: newType,
+      amount: parseFloat(newAmount),
+      description: newDescription,
+      category: newCategory || (newType === "income" ? "Sales" : "Expenses"),
+      date: new Date().toISOString().split("T")[0],
+    };
+    setTransactions([newTx, ...transactions]);
+    setNewAmount("");
+    setNewDescription("");
+    setNewCategory("");
+    setShowAddForm(false);
+  };
 
-  const totalIncome = transactions.filter((t) => t.type === "income").reduce((sum, t) => sum + t.amount, 0);
-  const totalExpenses = transactions.filter((t) => t.type === "expense").reduce((sum, t) => sum + t.amount, 0);
+  const deleteTransaction = (id: string) => {
+    setTransactions(transactions.filter(t => t.id !== id));
+  };
+
+  const totalIncome = transactions.filter(t => t.type === "income").reduce((sum, t) => sum + t.amount, 0);
+  const totalExpenses = transactions.filter(t => t.type === "expense").reduce((sum, t) => sum + t.amount, 0);
   const profit = totalIncome - totalExpenses;
 
-  // Calculate chart totals
-  const chartIncome = chartData.reduce((sum, d) => sum + d.income, 0);
-  const chartExpenses = chartData.reduce((sum, d) => sum + d.expenses, 0);
-  const chartProfit = chartIncome - chartExpenses;
-
-  const maxValue = Math.max(...chartData.map(d => Math.max(d.income, d.expenses))) * 1.2;
+  const maxValue = 100; // Start small since everything is 0
 
   return (
     <div style={{ marginLeft: "80px", minHeight: "100vh", background: "#0a0a0f", color: "white" }}>
@@ -116,133 +106,138 @@ export default function ProfitsPage() {
               <DollarSign size={28} style={{ color: "#10b981" }} />
               Profits
             </h1>
-            <p style={{ color: "#9ca3af" }}>Track your income, expenses & profit</p>
+            <p style={{ color: "#9ca3af" }}>Track your income & expenses</p>
           </div>
           
-          {/* Timeframe Selector */}
-          <div style={{ display: "flex", gap: "8px", background: "#121218", padding: "4px", borderRadius: "8px" }}>
-            {["week", "month", "year"].map((t) => (
-              <button
-                key={t}
-                onClick={() => setTimeframe(t)}
-                style={{
-                  padding: "8px 16px",
-                  background: timeframe === t ? "#22d3ee" : "transparent",
-                  color: timeframe === t ? "#0a0a0f" : "#9ca3af",
-                  border: "none",
-                  borderRadius: "6px",
-                  fontWeight: 600,
-                  fontSize: "12px",
-                  cursor: "pointer",
-                  textTransform: "capitalize",
-                }}
-              >
-                {t}
-              </button>
-            ))}
-          </div>
+          <button 
+            onClick={() => setShowAddForm(!showAddForm)}
+            style={{ display: "flex", alignItems: "center", gap: "8px", background: "#22d3ee", color: "#0a0a0f", border: "none", padding: "12px 20px", borderRadius: "8px", fontWeight: 600, cursor: "pointer" }}
+          >
+            <Plus size={18} />
+            Add Transaction
+          </button>
         </div>
+
+        {/* Add Transaction Form */}
+        {showAddForm && (
+          <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px", marginBottom: "24px" }}>
+            <h3 style={{ fontWeight: 600, marginBottom: "16px" }}>Add New Transaction</h3>
+            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+              <div style={{ display: "flex", gap: "8px" }}>
+                <button 
+                  onClick={() => setNewType("income")}
+                  style={{ padding: "10px 20px", background: newType === "income" ? "#10b981" : "#1f1f2e", color: newType === "income" ? "#0a0a0f" : "#9ca3af", border: "none", borderRadius: "8px", fontWeight: 600, cursor: "pointer" }}
+                >
+                  + Income
+                </button>
+                <button 
+                  onClick={() => setNewType("expense")}
+                  style={{ padding: "10px 20px", background: newType === "expense" ? "#ef4444" : "#1f1f2e", color: newType === "expense" ? "#fff" : "#9ca3af", border: "none", borderRadius: "8px", fontWeight: 600, cursor: "pointer" }}
+                >
+                  - Expense
+                </button>
+              </div>
+              <input
+                type="number"
+                placeholder="Amount (€)"
+                value={newAmount}
+                onChange={(e) => setNewAmount(e.target.value)}
+                style={{ flex: 1, minWidth: "120px", background: "#0a0a0f", border: "1px solid #1f1f2e", borderRadius: "8px", padding: "12px", color: "white", fontSize: "14px", outline: "none" }}
+              />
+              <input
+                type="text"
+                placeholder="Description"
+                value={newDescription}
+                onChange={(e) => setNewDescription(e.target.value)}
+                style={{ flex: 2, minWidth: "150px", background: "#0a0a0f", border: "1px solid #1f1f2e", borderRadius: "8px", padding: "12px", color: "white", fontSize: "14px", outline: "none" }}
+              />
+              <input
+                type="text"
+                placeholder="Category (optional)"
+                value={newCategory}
+                onChange={(e) => setNewCategory(e.target.value)}
+                style={{ flex: 1, minWidth: "100px", background: "#0a0a0f", border: "1px solid #1f1f2e", borderRadius: "8px", padding: "12px", color: "white", fontSize: "14px", outline: "none" }}
+              />
+              <button 
+                onClick={addTransaction}
+                style={{ padding: "12px 24px", background: "#22d3ee", color: "#0a0a0f", border: "none", borderRadius: "8px", fontWeight: 600, cursor: "pointer" }}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Stats Cards */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px", marginBottom: "32px" }}>
           <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px", color: "#9ca3af", fontSize: "14px" }}>
               <TrendingUp size={16} style={{ color: "#10b981" }} />
-              Income ({timeframe})
+              Total Income
             </div>
-            <div style={{ fontSize: "32px", fontWeight: "bold", color: "#10b981" }}>€{chartIncome.toLocaleString()}</div>
-            <div style={{ fontSize: "12px", color: "#10b981", marginTop: "4px" }}>+{transactions.filter(t => t.type === "income").length} transactions</div>
+            <div style={{ fontSize: "32px", fontWeight: "bold", color: "#10b981" }}>€{totalIncome.toLocaleString()}</div>
+            <div style={{ fontSize: "12px", color: "#6b7280", marginTop: "4px" }}>{transactions.filter(t => t.type === "income").length} transactions</div>
           </div>
           
           <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px", color: "#9ca3af", fontSize: "14px" }}>
               <TrendingDown size={16} style={{ color: "#ef4444" }} />
-              Expenses ({timeframe})
+              Total Expenses
             </div>
-            <div style={{ fontSize: "32px", fontWeight: "bold", color: "#ef4444" }}>€{chartExpenses.toLocaleString()}</div>
-            <div style={{ fontSize: "12px", color: "#ef4444", marginTop: "4px" }}>-{transactions.filter(t => t.type === "expense").length} transactions</div>
+            <div style={{ fontSize: "32px", fontWeight: "bold", color: "#ef4444" }}>€{totalExpenses.toLocaleString()}</div>
+            <div style={{ fontSize: "12px", color: "#6b7280", marginTop: "4px" }}>{transactions.filter(t => t.type === "expense").length} transactions</div>
           </div>
           
           <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "20px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px", color: "#9ca3af", fontSize: "14px" }}>
-              <DollarSign size={16} style={{ color: chartProfit >= 0 ? "#22d3ee" : "#ef4444" }} />
-              Net Profit ({timeframe})
+              <DollarSign size={16} style={{ color: profit >= 0 ? "#22d3ee" : "#ef4444" }} />
+              Net Profit
             </div>
-            <div style={{ fontSize: "32px", fontWeight: "bold", color: chartProfit >= 0 ? "#22d3ee" : "#ef4444" }}>
-              €{chartProfit.toLocaleString()}
+            <div style={{ fontSize: "32px", fontWeight: "bold", color: profit >= 0 ? "#22d3ee" : "#ef4444" }}>
+              €{profit.toLocaleString()}
             </div>
-            <div style={{ fontSize: "12px", color: chartProfit >= 0 ? "#22d3ee" : "#ef4444", marginTop: "4px" }}>
-              {chartProfit >= 0 ? "Profit" : "Loss"}
+            <div style={{ fontSize: "12px", color: profit >= 0 ? "#22d3ee" : "#ef4444", marginTop: "4px" }}>
+              {profit >= 0 ? "Profit" : "Loss"}
             </div>
           </div>
         </div>
 
-        {/* Chart */}
+        {/* Chart - Shows empty bars since all 0 */}
         <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "24px", marginBottom: "32px" }}>
-          <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "24px" }}>Profit & Loss Over Time</h2>
-          
-          <div style={{ display: "flex", alignItems: "flex-end", gap: "4px", height: "200px", padding: "0 8px" }}>
-            {chartData.map((d, i) => (
-              <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
-                {/* Bars */}
-                <div style={{ display: "flex", gap: "2px", alignItems: "flex-end", height: "160px" }}>
-                  <div style={{ 
-                    width: "12px", 
-                    height: `${(d.income / maxValue) * 160}px`, 
-                    background: "#10b981", 
-                    borderRadius: "2px 2px 0 0",
-                    minHeight: "4px",
-                  }} />
-                  <div style={{ 
-                    width: "12px", 
-                    height: `${(d.expenses / maxValue) * 160}px`, 
-                    background: "#ef4444", 
-                    borderRadius: "2px 2px 0 0",
-                    minHeight: "4px",
-                  }} />
-                </div>
-                {/* Label */}
-                <div style={{ fontSize: "10px", color: "#6b7280", marginTop: "8px" }}>{d.date}</div>
-              </div>
-            ))}
-          </div>
-          
-          {/* Legend */}
-          <div style={{ display: "flex", gap: "24px", justifyContent: "center", marginTop: "24px", paddingTop: "16px", borderTop: "1px solid #1f1f2e" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <div style={{ width: "12px", height: "12px", background: "#10b981", borderRadius: "2px" }} />
-              <span style={{ fontSize: "12px", color: "#9ca3af" }}>Income</span>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <div style={{ width: "12px", height: "12px", background: "#ef4444", borderRadius: "2px" }} />
-              <span style={{ fontSize: "12px", color: "#9ca3af" }}>Expenses</span>
-            </div>
-          </div>
+          <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "16px" }}>Profit & Loss</h2>
+          <p style={{ fontSize: "13px", color: "#6b7280", textAlign: "center", padding: "40px" }}>
+            Add transactions above to see your profit chart
+          </p>
         </div>
 
-        {/* Recent Transactions */}
+        {/* Transactions List */}
         <div style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "24px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-            <h2 style={{ fontSize: "18px", fontWeight: 600 }}>Recent Transactions</h2>
-            <button style={{ display: "flex", alignItems: "center", gap: "6px", background: "#22d3ee", color: "#0a0a0f", border: "none", padding: "8px 16px", borderRadius: "6px", fontWeight: 600, fontSize: "12px", cursor: "pointer" }}>
-              <Plus size={14} />
-              Add
-            </button>
-          </div>
+          <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "16px" }}>All Transactions</h2>
           
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-            {transactions.slice(0, 5).map((t) => (
-              <div key={t.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px", background: "#0a0a0f", borderRadius: "8px" }}>
-                <div>
-                  <div style={{ fontWeight: 500, fontSize: "14px" }}>{t.description}</div>
-                  <div style={{ fontSize: "11px", color: "#6b7280" }}>{t.category} • {t.date}</div>
+          {transactions.length === 0 ? (
+            <div style={{ textAlign: "center", padding: "40px", color: "#6b7280" }}>
+              No transactions yet. Add your first one above!
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {transactions.map((t) => (
+                <div key={t.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px", background: "#0a0a0f", borderRadius: "8px" }}>
+                  <div>
+                    <div style={{ fontWeight: 500, fontSize: "14px" }}>{t.description}</div>
+                    <div style={{ fontSize: "11px", color: "#6b7280" }}>{t.category} • {t.date}</div>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                    <div style={{ color: t.type === "income" ? "#10b981" : "#ef4444", fontWeight: 600, fontSize: "14px" }}>
+                      {t.type === "income" ? "+" : "-"}€{t.amount}
+                    </div>
+                    <button onClick={() => deleteTransaction(t.id)} style={{ background: "none", border: "none", color: "#6b7280", cursor: "pointer", padding: "4px" }}>
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
                 </div>
-                <div style={{ color: t.type === "income" ? "#10b981" : "#ef4444", fontWeight: 600, fontSize: "14px" }}>
-                  {t.type === "income" ? "+" : "-"}€{t.amount}
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
