@@ -1,137 +1,107 @@
-"use client";
+import Link from "next/link";
+import { Rocket, Check, Download, Sparkles } from "lucide-react";
 
-import { Rocket, Check, Clock, Zap, Brain, TrendingUp, Sparkles } from "lucide-react";
-
-const upgrades = [
-  {
-    id: "1",
-    name: "Memory Expansion",
-    description: "Store 10x more memories with priority search",
-    icon: Brain,
-    price: "Free",
-    status: "available",
-    features: ["Unlimited memory storage", "Priority search results", "Auto-categorization"],
-  },
-  {
-    id: "2",
-    name: "Research Pro",
-    description: "AI-powered deep research with sources",
-    icon: Zap,
-    price: "€9/mo",
-    status: "available",
-    features: ["Deep research mode", "Source citations", "Competitor analysis"],
-  },
-  {
-    id: "3",
-    name: "Analytics Dashboard",
-    description: "Advanced revenue and growth analytics",
-    icon: TrendingUp,
-    price: "€19/mo",
-    status: "coming_soon",
-    features: ["Revenue charts", "Growth projections", "Export reports"],
-  },
-  {
-    id: "4",
-    name: "Content Automator",
-    description: "Auto-generate scripts and thumbnails",
-    icon: Sparkles,
-    price: "€29/mo",
-    status: "coming_soon",
-    features: ["AI script writing", "Auto thumbnails", "Scheduling"],
-  },
+const installedSkills = [
+  { name: "gog", description: "Google Workspace CLI (Gmail, Calendar, Drive)", installed: true },
+  { name: "summarize", description: "Summarize URLs, PDFs, YouTube videos", installed: true },
+  { name: "weather", description: "Weather forecasts (no API key needed)", installed: true },
+  { name: "healthcheck", description: "Security audits & system health", installed: true },
+  { name: "skill-creator", description: "Create & update AgentSkills", installed: true },
+  { name: "Ecommerce", description: "Build & operate online stores", installed: true },
+  { name: "Product", description: "Product strategy & launch tools", installed: true },
+  { name: "SEO", description: "Search optimization & audits", installed: true },
+  { name: "Social Media Scheduler", description: "Plan & organize social content", installed: true },
 ];
 
-export default function UpgradesPage() {
+const availableSkills = [
+  { name: "Notion", description: "Notion integration for notes & databases", category: "Productivity" },
+  { name: "Discord", description: "Discord bot & messaging", category: "Communication" },
+  { name: "Slack", description: "Slack workspace integration", category: "Communication" },
+  { name: "GitHub", description: "GitHub issues & PR automation", category: "Development" },
+  { name: "Coding Agent", description: "AI coding assistant", category: "Development" },
+  { name: "Spotify", description: "Spotify playback control", category: "Media" },
+  { name: "OpenAI Image Gen", description: "Generate images with DALL-E", category: "AI" },
+  { name: "TTS (sag)", description: "Text-to-speech with ElevenLabs", category: "AI" },
+  { name: "Calendar", description: "Calendar management", category: "Productivity" },
+  { name: "Obsidian", description: "Obsidian vault integration", category: "Productivity" },
+];
+
+export default function Upgrades() {
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white">
+    <div style={{ minHeight: "100vh", background: "#0a0a0f", color: "white", marginRight: "64px" }}>
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold mb-2">Upgrades</h1>
-        <p className="text-gray-400">Enhance Mori's capabilities</p>
-      </div>
-
-      {/* Current Plan */}
-      <div className="bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 rounded-2xl p-6 mb-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <Rocket className="w-5 h-5 text-cyan-400" />
-              <span className="text-cyan-400 font-medium">Free Plan</span>
-            </div>
-            <p className="text-sm text-gray-400">Basic capabilities</p>
+      <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
+        <span style={{ fontWeight: 600 }}>Mission Control</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#9ca3af" }}>
+            <div style={{ width: "8px", height: "8px", background: "#22d3ee", borderRadius: "50%" }} />
+            Mori online
           </div>
-          <button className="px-4 py-2 bg-cyan-500 text-black rounded-lg font-medium hover:bg-cyan-400 transition-colors">
-            Upgrade Now
-          </button>
+          <div style={{ width: "32px", height: "32px", background: "linear-gradient(to bottom right, #22d3ee, #a855f7)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: "bold" }}>
+            L
+          </div>
         </div>
-      </div>
+      </header>
 
-      {/* Upgrades Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {upgrades.map((upgrade) => {
-          const Icon = upgrade.icon;
-          return (
-            <div
-              key={upgrade.id}
-              className={`bg-[#121218] border ${
-                upgrade.status === "available"
-                  ? "border-[#1f1f2e] hover:border-cyan-500/50"
-                  : "border-[#1f1f2e] opacity-60"
-              } rounded-2xl p-5 transition-all hover:scale-[1.02]`}
-            >
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#1f1f2e] rounded-xl flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-cyan-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">{upgrade.name}</h3>
-                    <p className="text-xs text-gray-400">{upgrade.description}</p>
-                  </div>
+      <div style={{ padding: "24px" }}>
+        <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "8px", display: "flex", alignItems: "center", gap: "8px" }}>
+          <Rocket size={24} style={{ color: "#ec4899" }} />
+          Upgrades
+        </h1>
+        <p style={{ color: "#9ca3af", marginBottom: "32px" }}>Extend your Mission Control with skills & capabilities</p>
+
+        {/* Installed Skills */}
+        <div style={{ marginBottom: "40px" }}>
+          <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+            <Check size={20} style={{ color: "#10b981" }} />
+            Installed Skills
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "12px" }}>
+            {installedSkills.map((skill) => (
+              <div key={skill.name} style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "16px" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
+                  <span style={{ fontWeight: 600, color: "#22d3ee" }}>{skill.name}</span>
+                  <Check size={16} style={{ color: "#10b981" }} />
                 </div>
-                <span
-                  className={`text-sm font-medium px-3 py-1 rounded-full ${
-                    upgrade.status === "available"
-                      ? "bg-cyan-500/20 text-cyan-400"
-                      : "bg-gray-500/20 text-gray-400"
-                  }`}
-                >
-                  {upgrade.status === "available" ? upgrade.price : "Coming Soon"}
-                </span>
+                <p style={{ fontSize: "12px", color: "#9ca3af" }}>{skill.description}</p>
               </div>
+            ))}
+          </div>
+        </div>
 
-              <div className="space-y-2 mb-4">
-                {upgrade.features.map((feature, i) => (
-                  <div key={i} className="flex items-center gap-2 text-sm text-gray-400">
-                    <Check className="w-4 h-4 text-cyan-400" />
-                    {feature}
-                  </div>
-                ))}
+        {/* Available Skills */}
+        <div>
+          <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+            <Sparkles size={20} style={{ color: "#a855f7" }} />
+            Available to Install
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "12px" }}>
+            {availableSkills.map((skill) => (
+              <div key={skill.name} style={{ background: "#121218", border: "1px solid #1f1f2e", borderRadius: "12px", padding: "16px" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
+                  <span style={{ fontWeight: 600 }}>{skill.name}</span>
+                  <span style={{ fontSize: "10px", background: "#1f1f2e", padding: "2px 8px", borderRadius: "4px", color: "#9ca3af" }}>{skill.category}</span>
+                </div>
+                <p style={{ fontSize: "12px", color: "#9ca3af", marginBottom: "12px" }}>{skill.description}</p>
+                <button style={{ display: "flex", alignItems: "center", gap: "4px", background: "transparent", border: "1px solid #22d3ee", color: "#22d3ee", padding: "6px 12px", borderRadius: "6px", fontSize: "12px", cursor: "pointer" }}>
+                  <Download size={12} />
+                  Install
+                </button>
               </div>
+            ))}
+          </div>
+        </div>
 
-              <button
-                disabled={upgrade.status !== "available"}
-                className={`w-full py-2 rounded-lg font-medium transition-colors ${
-                  upgrade.status === "available"
-                    ? "bg-[#1f1f2e] hover:bg-cyan-500 hover:text-black"
-                    : "bg-[#1f1f2e] text-gray-500 cursor-not-allowed"
-                }`}
-              >
-                {upgrade.status === "available" ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <Rocket className="w-4 h-4" />
-                    Get Upgrade
-                  </span>
-                ) : (
-                  <span className="flex items-center justify-center gap-2">
-                    <Clock className="w-4 h-4" />
-                    Coming Soon
-                  </span>
-                )}
-              </button>
-            </div>
-          );
-        })}
+        {/* Clawhub */}
+        <div style={{ marginTop: "40px", background: "linear-gradient(to right, #22d3ee10, #a855f710)", border: "1px solid #22d3ee30", borderRadius: "12px", padding: "24px" }}>
+          <h2 style={{ fontSize: "18px", fontWeight: 600, marginBottom: "8px" }}>🔗 Clawhub</h2>
+          <p style={{ color: "#9ca3af", fontSize: "14px", marginBottom: "16px" }}>
+            Discover more skills at <a href="https://clawhub.com" target="_blank" style={{ color: "#22d3ee" }}>clawhub.com</a> — the marketplace for OpenClaw skills
+          </p>
+          <a href="https://clawhub.com" target="_blank" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "#22d3ee", color: "#0a0a0f", padding: "10px 20px", borderRadius: "8px", fontWeight: 600, textDecoration: "none" }}>
+            Browse Clawhub
+          </a>
+        </div>
       </div>
     </div>
   );
