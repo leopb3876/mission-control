@@ -21,9 +21,11 @@ const platformIcons: Record<string, any> = {
 };
 
 export default function ContentPage() {
-  const [content, setContent] = useState<ContentItem[]>([]);
+  const [content, setContent] = useState<ContentItem[]>([]
+  </div>
+);
 
-  return (
+  <div style={{ marginLeft: "80px" }}>
     <div className="min-h-screen bg-[#0a0a0f]">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
@@ -49,7 +51,7 @@ export default function ContentPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {content.map((item) => {
             const PlatformIcon = platformIcons[item.platform];
-            return (
+            <div style={{ marginLeft: "80px" }}>
               <div key={item.id} className="bg-[#121218] border border-[#1f1f2e] rounded-xl p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <PlatformIcon className="w-4 h-4 text-gray-400" />
@@ -58,10 +60,14 @@ export default function ContentPage() {
                 <h3 className="font-medium mb-2">{item.title}</h3>
                 <span className="text-xs px-2 py-1 bg-[#1f1f2e] rounded text-gray-400 capitalize">{item.stage}</span>
               </div>
-            );
+            
+  </div>
+);
           })}
         </div>
       )}
     </div>
-  );
+  
+  </div>
+);
 }

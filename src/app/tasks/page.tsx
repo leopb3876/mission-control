@@ -47,21 +47,33 @@ const columns = [
 ];
 
 export default function TasksPage() {
-  const [tasks, setTasks] = useState<Task[]>(initialTasks);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [draggedTask, setDraggedTask] = useState<string | null>(null);
+  const [tasks, setTasks] = useState<Task[]>(initialTasks
+  </div>
+);
+  const [searchQuery, setSearchQuery] = useState(""
+  </div>
+);
+  const [draggedTask, setDraggedTask] = useState<string | null>(null
+  </div>
+);
 
   const filteredTasks = tasks.filter((task) =>
     searchQuery === "" ||
     task.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  
+  </div>
+);
 
   const handleDrop = (status: string) => {
     if (draggedTask) {
       setTasks(tasks.map((t) =>
         t.id === draggedTask ? { ...t, status: status as Task["status"] } : t
-      ));
-      setDraggedTask(null);
+      )
+  </div>
+);
+      setDraggedTask(null
+  </div>
+);
     }
   };
 
@@ -79,7 +91,7 @@ export default function TasksPage() {
     done: "bg-emerald-500/20 text-emerald-400",
   };
 
-  return (
+  <div style={{ marginLeft: "80px" }}>
     <div className="min-h-screen bg-[#0a0a0f]">
       {/* Header */}
       <div className="mb-6">
@@ -154,5 +166,7 @@ export default function TasksPage() {
         ))}
       </div>
     </div>
-  );
+  
+  </div>
+);
 }

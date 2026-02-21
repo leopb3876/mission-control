@@ -4,16 +4,26 @@ import { useState } from "react";
 import { Plus, ChevronLeft, ChevronRight, Calendar as CalendarIcon } from "lucide-react";
 
 export default function CalendarPage() {
-  const [currentDate, setCurrentDate] = useState(new Date(2026, 1, 21));
+  const [currentDate, setCurrentDate] = useState(new Date(2026, 1, 21)
+  </div>
+);
 
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
-  const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+  const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate(
+  </div>
+);
+  const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay(
+  </div>
+);
 
-  const prevMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
-  const nextMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+  const prevMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
+  </div>
+);
+  const nextMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+  </div>
+);
 
-  return (
+  <div style={{ marginLeft: "80px" }}>
     <div className="min-h-screen bg-[#0a0a0f]">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
@@ -57,14 +67,18 @@ export default function CalendarPage() {
           {Array.from({ length: daysInMonth }).map((_, i) => {
             const day = i + 1;
             const isToday = day === 21 && currentDate.getMonth() === 1;
-            return (
+            <div style={{ marginLeft: "80px" }}>
               <div key={day} className={`p-3 min-h-[100px] border-t border-r border-[#1f1f2e] ${isToday ? 'bg-cyan-500/10' : ''}`}>
                 <div className={`text-sm font-medium ${isToday ? 'text-cyan-400' : 'text-gray-400'}`}>{day}</div>
               </div>
-            );
+            
+  </div>
+);
           })}
         </div>
       </div>
     </div>
-  );
+  
+  </div>
+);
 }

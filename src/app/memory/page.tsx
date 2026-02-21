@@ -14,16 +14,22 @@ type Memory = {
 const initialMemories: Memory[] = [];
 
 export default function MemoryPage() {
-  const [memories, setMemories] = useState<Memory[]>(initialMemories);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [memories, setMemories] = useState<Memory[]>(initialMemories
+  </div>
+);
+  const [searchQuery, setSearchQuery] = useState(""
+  </div>
+);
 
   const filteredMemories = memories.filter((m) =>
     searchQuery === "" ||
     m.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     m.content.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  
+  </div>
+);
 
-  return (
+  <div style={{ marginLeft: "80px" }}>
     <div className="min-h-screen bg-[#0a0a0f]">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
@@ -72,5 +78,7 @@ export default function MemoryPage() {
         </div>
       )}
     </div>
-  );
+  
+  </div>
+);
 }

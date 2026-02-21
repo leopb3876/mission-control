@@ -14,7 +14,9 @@ type Agent = {
 const initialAgents: Agent[] = [];
 
 export default function OfficePage() {
-  const [agents] = useState<Agent[]>(initialAgents);
+  const [agents] = useState<Agent[]>(initialAgents
+  </div>
+);
 
   const statusConfig = {
     working: { color: "bg-emerald-400", label: "Working", icon: Code },
@@ -23,7 +25,7 @@ export default function OfficePage() {
     offline: { color: "bg-gray-500", label: "Offline", icon: Monitor },
   };
 
-  return (
+  <div style={{ marginLeft: "80px" }}>
     <div className="min-h-screen bg-[#0a0a0f]">
       {/* Header */}
       <div className="mb-6">
@@ -88,16 +90,20 @@ export default function OfficePage() {
         </div>
       </div>
     </div>
-  );
+  
+  </div>
+);
 }
 
 function Users({ className }: { className?: string }) {
-  return (
+  <div style={{ marginLeft: "80px" }}>
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
       <circle cx="9" cy="7" r="4" />
       <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
       <path d="M16 3.13a4 4 0 0 1 0 7.75" />
     </svg>
-  );
+  
+  </div>
+);
 }

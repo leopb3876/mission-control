@@ -22,7 +22,9 @@ const roleIcons: Record<string, any> = {
 };
 
 export default function TeamPage() {
-  const [agents] = useState<Agent[]>(initialAgents);
+  const [agents] = useState<Agent[]>(initialAgents
+  </div>
+);
 
   const statusColors = {
     active: "bg-emerald-400",
@@ -30,7 +32,7 @@ export default function TeamPage() {
     offline: "bg-gray-500",
   };
 
-  return (
+  <div style={{ marginLeft: "80px" }}>
     <div className="min-h-screen bg-[#0a0a0f]">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
@@ -56,7 +58,7 @@ export default function TeamPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {agents.map((agent) => {
             const RoleIcon = roleIcons[agent.role] || User;
-            return (
+            <div style={{ marginLeft: "80px" }}>
               <div key={agent.id} className="bg-[#121218] border border-[#1f1f2e] rounded-xl p-5">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-full flex items-center justify-center text-lg font-bold">
@@ -73,10 +75,14 @@ export default function TeamPage() {
                   <span className="text-xs capitalize text-gray-400">{agent.status}</span>
                 </div>
               </div>
-            );
+            
+  </div>
+);
           })}
         </div>
       )}
     </div>
-  );
+  
+  </div>
+);
 }

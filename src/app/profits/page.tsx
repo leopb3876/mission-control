@@ -13,15 +13,21 @@ type Transaction = {
 };
 
 export default function ProfitsPage() {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]
+  </div>
+);
   
   const totalIncome = transactions
     .filter((t) => t.type === "income")
-    .reduce((sum, t) => sum + t.amount, 0);
+    .reduce((sum, t) => sum + t.amount, 0
+  </div>
+);
   
   const totalExpenses = transactions
     .filter((t) => t.type === "expense")
-    .reduce((sum, t) => sum + t.amount, 0);
+    .reduce((sum, t) => sum + t.amount, 0
+  </div>
+);
   
   const profit = totalIncome - totalExpenses;
 
@@ -32,7 +38,7 @@ export default function ProfitsPage() {
     { label: "Transactions", value: transactions.length.toString(), icon: Wallet, color: "text-purple-400" },
   ];
 
-  return (
+  <div style={{ marginLeft: "80px" }}>
     <div className="min-h-screen bg-[#0a0a0f]">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
@@ -46,7 +52,7 @@ export default function ProfitsPage() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         {statCards.map((stat, i) => {
           const Icon = stat.icon;
-          return (
+          <div style={{ marginLeft: "80px" }}>
             <div key={i} className="bg-[#121218] border border-[#1f1f2e] rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs text-gray-500">{stat.label}</span>
@@ -54,7 +60,9 @@ export default function ProfitsPage() {
               </div>
               <div className={`text-xl font-bold ${stat.color}`}>{stat.value}</div>
             </div>
-          );
+          
+  </div>
+);
         })}
       </div>
 
@@ -91,5 +99,7 @@ export default function ProfitsPage() {
         )}
       </div>
     </div>
-  );
+  
+  </div>
+);
 }
