@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   description: "Your personal operating system",
 };
 
+const SIDEBAR_WIDTH = 80;
+
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
   { href: "/tasks", label: "Tasks", icon: CheckSquare },
@@ -22,7 +24,7 @@ const navItems = [
 
 function Sidebar() {
   return (
-    <aside style={{ width: "64px", background: "#121218", borderLeft: "1px solid #1f1f2e", padding: "12px", display: "flex", flexDirection: "column", position: "fixed", right: 0, top: 0, height: "100vh" }}>
+    <aside style={{ width: `${SIDEBAR_WIDTH}px`, background: "#121218", borderLeft: "1px solid #1f1f2e", padding: "12px", display: "flex", flexDirection: "column", position: "fixed", right: 0, top: 0, height: "100vh" }}>
       <div style={{ width: "40px", height: "40px", background: "linear-gradient(to bottom right, #22d3ee, #0891b2)", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "24px" }}>
         <span style={{ fontSize: "20px" }}>⚡</span>
       </div>
@@ -45,7 +47,7 @@ function Sidebar() {
                 transition: "all 0.2s",
               }}
             >
-              <Icon size={20} />
+              <Icon size={22} />
             </Link>
           );
         })}

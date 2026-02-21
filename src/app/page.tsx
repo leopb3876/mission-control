@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <div style={{ minHeight: "100vh", background: "#0a0a0f", color: "white", display: "flex" }}>
       {/* Main */}
-      <main style={{ flex: 1, display: "flex", flexDirection: "column", marginRight: "64px" }}>
+      <main style={{ flex: 1, display: "flex", flexDirection: "column", marginRight: "80px" }}>
         {/* Header */}
         <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
           <span style={{ fontWeight: 600 }}>Mission Control</span>
