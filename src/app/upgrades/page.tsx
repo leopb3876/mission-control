@@ -28,7 +28,7 @@ const availableSkills = [
 
 export default function Upgrades() {
   return (
-    <div style={{ minHeight: "100vh", background: "#0a0a0f", color: "white", marginRight: "80px" }}>
+    <div style={{ minHeight: "100vh", background: "#0a0a0f", color: "white", marginLeft: "80px" }}>
       {/* Header */}
       <header style={{ height: "56px", background: "#121218", borderBottom: "1px solid #1f1f2e", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0 }}>
         <span style={{ fontWeight: 600 }}>Mission Control</span>
