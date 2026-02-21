@@ -21,10 +21,24 @@ type Activity = {
   time: string;
 };
 
+// Pixel art sprite data (simple 8x8 pixel characters)
+const createPixelCharacter = (color: string) => (
+  <svg width="32" height="32" viewBox="0 0 8 8" style={{ imageRendering: "pixelated" }}>
+    <rect x="2" y="0" width="4" height="1" fill={color} />
+    <rect x="1" y="1" width="6" height="1" fill={color} />
+    <rect x="1" y="2" width="2" height="2" fill={color} />
+    <rect x="5" y="2" height="2" width="2" fill={color} />
+    <rect x="2" y="3" width="4" height="3" fill={color} />
+    <rect x="1" y="4" width="6" height="3" fill={color} />
+    <rect x="1" y="6" width="2" height="2" fill={color} />
+    <rect x="5" y="6" width="2" height="2" fill={color} />
+  </svg>
+);
+
 export default function OfficePage() {
   const [agents, setAgents] = useState<Agent[]>([
-    { id: "mori", name: "Mori", emoji: "🌿", status: "working", x: 160, y: 280, targetX: 160, targetY: 280, color: "#22d3ee" },
-    { id: "leo", name: "Leo", emoji: "👤", status: "idle", x: 340, y: 300, targetX: 340, targetY: 300, color: "#a855f7" },
+    { id: "mori", name: "Mori", emoji: "🌿", status: "working", x: 140, y: 300, targetX: 140, targetY: 300, color: "#22d3ee" },
+    { id: "leo", name: "Leo", emoji: "👤", status: "idle", x: 380, y: 320, targetX: 380, targetY: 320, color: "#a855f7" },
   ]);
 
   const [activities, setActivities] = useState<Activity[]>([
@@ -35,8 +49,8 @@ export default function OfficePage() {
   // Generate desk positions based on agents
   const deskPositions = agents.map((agent, i) => ({
     id: agent.id,
-    x: 100 + i * 200,
-    y: 220,
+    x: 80 + i * 220,
+    y: 240,
     color: agent.color,
   }));
 
@@ -47,7 +61,7 @@ export default function OfficePage() {
         if (agent.status === "idle") {
           return {
             ...agent,
-            targetX: Math.random() * 300 + 100,
+            targetX: Math.random() * 350 + 80,
             targetY: Math.random() * 200 + 150,
           };
         }
@@ -115,147 +129,153 @@ export default function OfficePage() {
       </header>
 
       <div style={{ display: "flex", gap: "24px", width: "100%" }}>
-        {/* Office Room - Top Down Pixel Art */}
+        {/* Office Room - Pixel Art Style */}
         <div style={{ flex: 1 }}>
           <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "8px" }}>Office</h1>
           <p style={{ color: "#9ca3af", marginBottom: "16px" }}>Your virtual workspace</p>
 
-          {/* Office Room - Top Down Pixel Art - Fills available space */}
-        <div style={{ 
-            flex: 1, 
-            height: "450px",
+          <div style={{
+            flex: 1,
+            height: "420px",
             position: "relative",
-            borderRadius: "8px",
+            borderRadius: "0px",
             overflow: "hidden",
-            border: "4px solid #2d2d44",
+            border: "4px solid #1a1a2e",
             imageRendering: "pixelated",
           }}>
-            {/* Floor - Pixel Art Tile */}
+            {/* Floor - Checkered Pixel Tiles */}
             <div style={{
               position: "absolute",
               inset: 0,
               background: `
-                linear-gradient(90deg, #3d3d5c 1px, transparent 1px),
-                linear-gradient(#3d3d5c 1px, transparent 1px),
-                #2a2a40
+                linear-gradient(90deg, #2a2a40 2px, transparent 2px),
+                linear-gradient(#2a2a40 2px, transparent 2px),
+                #1f1f35
               `,
               backgroundSize: "16px 16px",
             }} />
 
-            {/* Plant - Pixel Art */}
-            <div style={{ position: "absolute", bottom: "80px", left: "30px" }}>
-              {/* Pot */}
-              <div style={{ 
-                width: "24px", 
-                height: "16px", 
-                background: "#cd853f",
-                clipPath: "polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%)"
-              }} />
-              {/* Leaves - pixelated */}
-              <div style={{ 
-                position: "absolute", 
-                bottom: "12px", 
-                left: "-8px",
-                fontSize: "28px", 
-                imageRendering: "pixelated",
-                filter: "saturate(0.8)"
-              }}>🌿</div>
-            </div>
-
-            {/* Water Cooler - Pixel Art */}
-            <div style={{ position: "absolute", bottom: "80px", right: "40px" }}>
-              <div style={{ 
-                width: "20px", 
-                height: "50px", 
-                background: "#4a90d9",
-                imageRendering: "pixelated"
-              }} />
-              <div style={{ 
-                width: "24px", 
-                height: "8px", 
-                background: "#3a70b0",
-                marginTop: "-2px"
-              }} />
-            </div>
-
-            {/* Desks with Monitors - Generated for each agent */}
-            {deskPositions.map((desk, i) => (
-              <div key={desk.id} style={{ position: "absolute", bottom: "120px", left: `${desk.x}px` }}>
-                {/* Desk */}
-                <div style={{ 
-                  width: "80px", 
-                  height: "40px", 
-                  background: "#5c4033",
-                  imageRendering: "pixelated"
-                }}>
-                  {/* Monitor */}
-                  <div style={{ 
-                    position: "absolute", 
-                    top: "-25px", 
-                    left: "20px",
-                    width: "40px", 
-                    height: "28px", 
-                    background: "#1a1a2e",
-                    border: "2px solid #3a3a5e"
-                  }}>
-                    <div style={{ 
-                      position: "absolute", 
-                      inset: "2px", 
-                      background: agents[i]?.status === "working" ? desk.color : "#0f0f1a",
-                      transition: "background 0.3s"
-                    }} />
-                  </div>
-                  {/* Stand */}
-                  <div style={{ 
-                    position: "absolute", 
-                    top: "3px", 
-                    left: "32px",
-                    width: "16px", 
-                    height: "8px", 
-                    background: "#3a3a5e"
-                  }} />
-                </div>
-              </div>
-            ))}
-
-            {/* Wall/Top Border */}
+            {/* Top Wall */}
             <div style={{
               position: "absolute",
               top: 0,
               left: 0,
               right: 0,
-              height: "60px",
-              background: "linear-gradient(180deg, #1a1a2e 0%, #2a2a40 100%)",
+              height: "50px",
+              background: "#1a1a2e",
+              borderBottom: "4px solid #0f0f1a",
             }}>
-              {/* Window */}
+              {/* Pixel Window */}
               <div style={{
                 position: "absolute",
-                top: "10px",
+                top: "8px",
                 left: "50%",
                 transform: "translateX(-50%)",
                 width: "80px",
-                height: "40px",
-                background: "#87ceeb",
-                border: "3px solid #5c4033",
+                height: "34px",
+                background: "#5c9ed9",
+                border: "4px solid #3d2817",
+                imageRendering: "pixelated",
               }}>
-                <div style={{ 
-                  position: "absolute", 
-                  top: "50%", 
-                  left: 0, 
-                  right: 0, 
-                  height: "2px", 
-                  background: "#5c4033" 
-                }} />
-                <div style={{ 
-                  position: "absolute", 
-                  top: 0, 
-                  bottom: 0, 
-                  left: "50%", 
-                  width: "2px", 
-                  background: "#5c4033" 
-                }} />
+                {/* Window cross */}
+                <div style={{ position: "absolute", top: "50%", left: 0, right: 0, height: "4px", background: "#3d2817", transform: "translateY(-50%)" }} />
+                <div style={{ position: "absolute", left: "50%", top: 0, bottom: 0, width: "4px", background: "#3d2817", transform: "translateX(-50%)" }} />
+                {/* Sun pixel */}
+                <div style={{ position: "absolute", top: "4px", right: "6px", width: "8px", height: "8px", background: "#ffd700", boxShadow: "0 0 8px #ffd700" }} />
               </div>
             </div>
+
+            {/* Baseboard */}
+            <div style={{
+              position: "absolute",
+              bottom: "80px",
+              left: 0,
+              right: 0,
+              height: "8px",
+              background: "#3d2817",
+            }} />
+
+            {/* Plant - Pixel Art */}
+            <div style={{ position: "absolute", bottom: "84px", left: "24px" }}>
+              {/* Pot */}
+              <div style={{ 
+                width: "28px", 
+                height: "16px", 
+                background: "#cd853f",
+                clipPath: "polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%)",
+              }} />
+              {/* Leaves - pixel blocks */}
+              <div style={{ 
+                position: "absolute", 
+                bottom: "12px", 
+                left: "-4px",
+                fontSize: "24px", 
+                imageRendering: "pixelated",
+                filter: "saturate(0.7) contrast(1.2)",
+              }}>🌿</div>
+            </div>
+
+            {/* Water Cooler - Pixel Art */}
+            <div style={{ position: "absolute", bottom: "84px", right: "32px" }}>
+              <div style={{ 
+                width: "24px", 
+                height: "48px", 
+                background: "#4a90d9",
+                imageRendering: "pixelated",
+              }} />
+              <div style={{ 
+                width: "28px", 
+                height: "6px", 
+                background: "#3a70b0",
+                marginTop: "-2px"
+              }} />
+            </div>
+
+            {/* Pixel Art Desks */}
+            {deskPositions.map((desk) => (
+              <div key={desk.id} style={{ position: "absolute", bottom: "100px", left: `${desk.x}px` }}>
+                {/* Desk top */}
+                <div style={{ 
+                  width: "72px", 
+                  height: "8px", 
+                  background: "#5c4033",
+                  imageRendering: "pixelated"
+                }} />
+                {/* Desk front */}
+                <div style={{ 
+                  width: "72px", 
+                  height: "24px", 
+                  background: "#4a332a",
+                  marginTop: "2px"
+                }} />
+                {/* Monitor */}
+                <div style={{ 
+                  position: "absolute", 
+                  bottom: "40px", 
+                  left: "16px",
+                  width: "40px", 
+                  height: "28px", 
+                  background: "#1a1a2e",
+                  border: "3px solid #2a2a40"
+                }}>
+                  <div style={{ 
+                    position: "absolute", 
+                    inset: "3px", 
+                    background: deskPositions.find(d => d.id === desk.id)?.color || "#22d3ee",
+                    transition: "background 0.3s"
+                  }} />
+                </div>
+                {/* Stand */}
+                <div style={{ 
+                  position: "absolute", 
+                  bottom: "32px", 
+                  left: "28px",
+                  width: "16px", 
+                  height: "8px", 
+                  background: "#2a2a40"
+                }} />
+              </div>
+            ))}
 
             {/* Agents - Pixel Characters */}
             {agents.map((agent) => (
@@ -272,35 +292,30 @@ export default function OfficePage() {
                   zIndex: 5,
                 }}
               >
-                {/* Pixel Character */}
-                <div style={{
-                  width: "32px",
-                  height: "32px",
-                  background: agent.color,
-                  borderRadius: "4px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "18px",
-                  imageRendering: "pixelated",
-                  boxShadow: agent.status === "working" 
-                    ? `0 0 12px ${agent.color}` 
-                    : "none",
-                  animation: agent.status === "idle" ? "walk 0.4s steps(2) infinite" : "bounce 0.8s ease-in-out infinite",
-                }}>
-                  {agent.emoji}
-                </div>
+                {/* Pixel Character Sprite */}
+                <svg width="32" height="32" viewBox="0 0 8 8" style={{ imageRendering: "pixelated", filter: agent.status === "working" ? `drop-shadow(0 0 6px ${agent.color})` : "none" }}>
+                  {/* Head */}
+                  <rect x="2" y="0" width="4" height="2" fill={agent.color} />
+                  {/* Eyes */}
+                  <rect x="1" y="2" width="2" height="2" fill={agent.color} />
+                  <rect x="5" y="2" width="2" height="2" fill={agent.color} />
+                  {/* Body */}
+                  <rect x="2" y="3" width="4" height="3" fill={agent.color} />
+                  {/* Legs */}
+                  <rect x="1" y="6" width="2" height="2" fill={agent.color} />
+                  <rect x="5" y="6" width="2" height="2" fill={agent.color} />
+                </svg>
                 
                 {/* Name Tag - Pixel Style */}
                 <div style={{
                   marginTop: "2px",
                   padding: "2px 6px",
                   background: "#1a1a2e",
-                  borderRadius: "2px",
                   fontSize: "7px",
                   fontWeight: 700,
                   fontFamily: "monospace",
                   letterSpacing: "0.5px",
+                  border: "1px solid #2a2a40",
                 }}>
                   {agent.name}
                 </div>
@@ -311,20 +326,20 @@ export default function OfficePage() {
           {/* Legend */}
           <div style={{ display: "flex", gap: "24px", marginTop: "16px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <div style={{ width: "12px", height: "12px", background: "#10b981", borderRadius: "2px" }} />
+              <div style={{ width: "12px", height: "12px", background: "#22d3ee" }} />
               <span style={{ fontSize: "12px", color: "#9ca3af" }}>Working</span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <div style={{ width: "12px", height: "12px", background: "#f59e0b", borderRadius: "2px" }} />
+              <div style={{ width: "12px", height: "12px", background: "#a855f7" }} />
               <span style={{ fontSize: "12px", color: "#9ca3af" }}>Idle</span>
             </div>
           </div>
         </div>
 
         {/* Live Activity Sidebar */}
-        <div style={{ width: "260px", background: "#121218", borderRadius: "12px", border: "1px solid #1f1f2e", padding: "16px", height: "fit-content" }}>
+        <div style={{ width: "260px", background: "#121218", borderRadius: "0px", border: "1px solid #1f1f2e", padding: "16px", height: "fit-content" }}>
           <h2 style={{ fontSize: "16px", fontWeight: 600, marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
-            <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981", animation: "pulse 2s infinite" }} />
+            <div style={{ width: "8px", height: "8px", background: "#10b981" }} />
             Live Activity
           </h2>
           
@@ -335,9 +350,7 @@ export default function OfficePage() {
                 style={{
                   padding: "12px",
                   background: "#0a0a0f",
-                  borderRadius: "8px",
                   borderLeft: `3px solid ${activity.agent === "Mori" ? "#22d3ee" : activity.agent === "Leo" ? "#a855f7" : "#10b981"}`,
-                  animation: index === 0 ? "slideIn 0.3s ease-out" : "none",
                 }}
               >
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
@@ -352,33 +365,12 @@ export default function OfficePage() {
           </div>
 
           {/* System Status */}
-          <div style={{ marginTop: "20px", padding: "12px", background: "#10b98110", borderRadius: "8px", border: "1px solid #10b98130" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px" }}>
-              <span style={{ fontSize: "12px", fontWeight: 600, color: "#10b981" }}>● System</span>
-            </div>
-            <p style={{ fontSize: "10px", color: "#9ca3af" }}>All services operational</p>
+          <div style={{ marginTop: "20px", padding: "12px", background: "#0a0a0f", border: "1px solid #10b98130" }}>
+            <span style={{ fontSize: "12px", fontWeight: 600, color: "#10b981" }}>● System</span>
+            <p style={{ fontSize: "10px", color: "#9ca3af", marginTop: "4px" }}>All services operational</p>
           </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes bounce {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-3px); }
-        }
-        @keyframes walk {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-2px); }
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-        @keyframes slideIn {
-          from { opacity: 0; transform: translateX(10px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-      `}</style>
     </div>
   );
 }
