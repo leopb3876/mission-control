@@ -61,11 +61,7 @@ export default function TeamPage() {
           ))}
         </div>
 
-        {/* Add Agent Button */}
-        <button style={{ marginTop: "20px", display: "flex", alignItems: "center", gap: "8px", background: "transparent", border: "1px dashed #22d3ee", color: "#22d3ee", padding: "12px 24px", borderRadius: "8px", cursor: "pointer" }}>
-          <Users size={16} />
-          Add Agent
-        </button>
+        {/* Add agents through Mori in chat */}
       </div>
     </div>
   );
