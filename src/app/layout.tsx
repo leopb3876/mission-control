@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
-import { LayoutDashboard, CheckSquare, FileText, Calendar, Brain, Users, TrendingUp, Rocket } from "lucide-react";
+import { LayoutDashboard, CheckSquare, FileText, Calendar, Brain, Users, TrendingUp, Rocket, Clock } from "lucide-react";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
@@ -19,6 +19,7 @@ const navItems = [
   { href: "/calendar", label: "Calendar", icon: Calendar },
   { href: "/memory", label: "Memory", icon: Brain },
   { href: "/team", label: "Team", icon: Users },
+  { href: "/time", label: "Time", icon: Clock },
   { href: "/profits", label: "Profits", icon: TrendingUp },
   { href: "/upgrades", label: "Upgrades", icon: Rocket },
 ];
